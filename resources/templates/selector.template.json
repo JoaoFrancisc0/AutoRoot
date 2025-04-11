@@ -1,0 +1,28 @@
+{
+    "_info": "Este arquivo contém os seletores para a automação de login.",
+    "login": {
+      "username": {
+        "by": "id",
+        "value": "user_field"
+      },
+      "password": {
+        "by": "name",
+        "value": "senha"
+      },
+      "submit": {
+        "by": "xpath",
+        "value": "//button[@type='submit']"
+      }
+    },
+    "home": {
+      "menu": {
+        "by": "class_name",
+        "value": "menu-opcao"
+      },
+      "logout": {
+        "by": "xpath",
+        "value": "//a[@id='logout']"
+      }
+    }
+  }
+  
