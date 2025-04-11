@@ -1,6 +1,5 @@
 import pytest
 from unittest.mock import MagicMock, patch, mock_open
-from pathlib import Path
 
 from src.common import google_drive
 

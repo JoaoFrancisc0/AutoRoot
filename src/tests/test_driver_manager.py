@@ -8,6 +8,7 @@ def test_configure_driver_options():
     assert "prefs" in options.experimental_options
     assert "safebrowsing.enabled" in options.experimental_options["prefs"]
 
+
 def test_start_driver_mock(mocker):
     mock_chrome = mocker.patch("src.common.driver_manager.webdriver.Chrome")
     mock_manager = mocker.patch("src.common.driver_manager.ChromeDriverManager")
