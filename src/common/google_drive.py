@@ -6,8 +6,11 @@ from google.oauth2 import service_account
 # Authenticates with the Google Drive API
 def authenticate(base_dir, service_account_file='credenciais.json', scopes='https://www.googleapis.com/auth/drive'):
     try:
+        if isinstance(scopes, str):
+            scopes = [scopes]
         cred_path = base_dir / "resources" / service_account_file
         creds = service_account.Credentials.from_service_account_file(cred_path, scopes=scopes)
+        # print(creds)
         creds.refresh(Request())
         return build("drive", "v3", credentials=creds)
     except Exception as e:
