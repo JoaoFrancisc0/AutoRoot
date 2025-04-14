@@ -7,7 +7,7 @@ sys.path.append(str(Path(__file__).resolve().parent / "src"))
 from app.main import main
 
 # Retorna o diretório base do projeto, estando congelado ou não
-def obter_base_dir() -> Path:
+def obter_base_dir():
     if getattr(sys, 'frozen', False):
         return Path(sys._MEIPASS)
     return Path(__file__).resolve().parent
