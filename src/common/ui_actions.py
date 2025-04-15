@@ -32,3 +32,12 @@ def preencher_elemento(elemento, value):
     except Exception as e:
         print(f"Error filling element: {e}")
         raise
+
+def processo_de_login(driver, selectorsLogin, valuesLogin):
+    cont = 0
+    for campo, info in selectorsLogin.items():
+        by = info['by']
+        value= info['value']
+        elemento = detectar_elemento(driver, by, value)
+        preencher_elemento(elemento, valuesLogin[cont])
+        cont += 1
