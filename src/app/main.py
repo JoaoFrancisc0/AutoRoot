@@ -41,8 +41,13 @@ def main(base_dir):
     automacao_assistencia_tw()
     automacao_assistencia_veniti(
         driver,
-        configs["assistencia_veniti_env"]["LOGIN_URL"],
-        configs["assistencia_veniti_selectors"]["login"],
+        configs["assistencia_veniti_selectors"],
+        [
+            configs["assistencia_veniti_env"]["LOGIN_URL"],
+            configs["assistencia_veniti_env"]["HOME_URL"],
+            configs["assistencia_veniti_env"]["ATENDIMENTO_URL"],
+            configs["assistencia_veniti_env"]["CONJUNTURA_URL"],
+        ],
         [
             configs["assistencia_veniti_env"]["USERNAME"],
             configs["assistencia_veniti_env"]["PASSWORD"],
