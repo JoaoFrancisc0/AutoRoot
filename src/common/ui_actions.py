@@ -1,5 +1,6 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import time
 
 def carregar_url(driver, url, timeout=10):
     try:
@@ -14,6 +15,14 @@ def aguardar_url(driver, url, timeout=10):
         WebDriverWait(driver, timeout).until(lambda d: d.current_url == url)
     except Exception as e:
         print(f"Error to load URL: {e}")
+        raise
+
+
+def preencher_elemento(elemento, value):
+    try:
+        elemento.send_keys(value)
+    except Exception as e:
+        print(f"Error filling element: {e}")
         raise
         
 
@@ -43,30 +52,42 @@ def detectar_e_clicar_elemento(driver, by, value, timeout=10):
         raise
 
 
-def preencher_elemento(elemento, value):
+def detectar_e_clicar_n_elementos(driver, selectors):
     try:
-        elemento.send_keys(value)
+        items = list(selectors.items())
+        for i, (campo, info) in enumerate(items):
+            by = info['by']
+            value = info['value']
+            print(by, value)
+            time.sleep(10)
+            detectar_e_clicar_elemento(driver, by, value)
     except Exception as e:
-        print(f"Error filling element: {e}")
+        print(f"Error in detecting or cliking an element: {e}")
         raise
 
 
-def detectar_e_clicar_n_elementos(driver, selectors):
-    items = list(selectors.items())
-    for i, (campo, info) in enumerate(items):
-        by = info['by']
-        value = info['value']
+def processo_de_login(driver, selectors, valuesLogin):
+    try:
+        items = list(selectors.items())
+        for i, (campo, info) in enumerate(items):
+            by = info['by']
+            value = info['value']
+            elemento = detectar_elemento(driver, by, value)
+
+            if i == len(items) - 1:  # último item
+                clicar_elemento(elemento)
+            else:
+                preencher_elemento(elemento, valuesLogin[i])
+    except Exception as e:
+        print(f"Error in loging: {e}")
+        raise
+
+
+def confirmar_login(driver, selectors):
+    try:
+        by = selectors['by']
+        value = selectors['value']
         detectar_e_clicar_elemento(driver, by, value)
-
-
-def processo_de_login(driver, selectorsLogin, valuesLogin):
-    items = list(selectorsLogin.items())
-    for i, (campo, info) in enumerate(items):
-        by = info['by']
-        value = info['value']
-        elemento = detectar_elemento(driver, by, value)
-
-        if i == len(items) - 1:  # último item
-            clicar_elemento(elemento)
-        else:
-            preencher_elemento(elemento, valuesLogin[i])
+    except:
+        # Confirmação não necessária
+        pass

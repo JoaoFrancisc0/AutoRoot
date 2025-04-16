@@ -9,5 +9,6 @@ def coleta_assistencia_veniti(driver, selectors, links, values):
     # Ebter na página de login
     ui_actions.carregar_url(driver, links[0])
     ui_actions.processo_de_login(driver, selectors["login"], values)
+    ui_actions.confirmar_login(driver, selectors["confirmacao"])
     ui_actions.aguardar_url(driver, links[1])
-    coleta_atendimentos(driver, selectors["atendimentos"], links[2])
+    coleta_atendimentos(driver, selectors["atendimentos_1"], links[2])
