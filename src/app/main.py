@@ -52,6 +52,7 @@ def main(base_dir):
     automacao_evento_ileva()
     automacao_evento_kommo()
     print("Automação finalizada.")
+    input("Pressione Enter para sair...")
 
 # ==================== EXECUÇÃO ====================
 if __name__ == "__main__":
