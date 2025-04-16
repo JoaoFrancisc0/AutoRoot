@@ -26,6 +26,15 @@ def preencher_elemento(elemento, value):
         raise
         
 
+def detectar_e_preencher_campo_data(driver, selectors, data):
+    by = selectors['by']
+    value = selectors['value']
+    elemento = detectar_elemento(driver, by, value)
+    driver.execute_script(
+        "arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('change'));",
+        elemento, data
+        )
+
 def detectar_elemento(driver, by, value, timeout=10):
     try:
         elemento = WebDriverWait(driver, timeout).until(EC.presence_of_element_located((by, value)))
@@ -38,6 +47,7 @@ def detectar_elemento(driver, by, value, timeout=10):
 def clicar_elemento(elemento):
     try:
         elemento.click()
+        time.sleep(1)
     except Exception as e:
         print(f"Error clicking element: {e}")
         raise
@@ -47,6 +57,7 @@ def detectar_e_clicar_elemento(driver, by, value, timeout=10):
     try:
         elemento = WebDriverWait(driver, timeout).until(EC.element_to_be_clickable((by, value)))
         elemento.click()
+        time.sleep(1)
     except Exception as e:
         print(f"Error clicking element: {e}")
         raise
@@ -59,7 +70,6 @@ def detectar_e_clicar_n_elementos(driver, selectors):
             by = info['by']
             value = info['value']
             print(by, value)
-            time.sleep(10)
             detectar_e_clicar_elemento(driver, by, value)
     except Exception as e:
         print(f"Error in detecting or cliking an element: {e}")
