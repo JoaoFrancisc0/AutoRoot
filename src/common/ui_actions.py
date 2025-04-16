@@ -1,6 +1,8 @@
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+from common import date_utils
 import time
+
 
 def carregar_url(driver, url, timeout=10):
     try:
@@ -9,6 +11,7 @@ def carregar_url(driver, url, timeout=10):
     except Exception as e:
         print(f"Error loading URL: {e}")
         raise
+
 
 def aguardar_url(driver, url, timeout=10):
     try:
@@ -24,7 +27,16 @@ def preencher_elemento(elemento, value):
     except Exception as e:
         print(f"Error filling element: {e}")
         raise
-        
+
+
+def preencher_periodo_mensal(driver, selectors):
+    numMes = date_utils.get_month_number()
+    numAno = date_utils.get_year()
+    dataInicio = f"01/{numMes}/{numAno}"
+    dataFinal = f"31/{numMes}/{numAno}"
+    detectar_e_preencher_campo_data(driver, selectors["inicio"], dataInicio)
+    detectar_e_preencher_campo_data(driver, selectors["final"], dataFinal)
+
 
 def detectar_e_preencher_campo_data(driver, selectors, data):
     by = selectors['by']
@@ -34,6 +46,7 @@ def detectar_e_preencher_campo_data(driver, selectors, data):
         "arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('change'));",
         elemento, data
         )
+
 
 def detectar_elemento(driver, by, value, timeout=10):
     try:

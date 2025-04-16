@@ -1,14 +1,10 @@
-from src.common import ui_actions, date_utils
+from src.common import ui_actions
+
 
 def coleta_atendimentos(driver, selectors, link):
     ui_actions.carregar_url(driver, link)
     ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atendimentos_1"])
-    numMes = date_utils.get_month_number()
-    numAno = date_utils.get_year()
-    dataInicio = f"01/{numMes}/{numAno}"
-    dataFinal = f"31/{numMes}/{numAno}"
-    ui_actions.detectar_e_preencher_campo_data(driver, selectors["periodo"]["inicio"], dataInicio)
-    ui_actions.detectar_e_preencher_campo_data(driver, selectors["periodo"]["final"], dataFinal)
+    ui_actions.preencher_periodo_mensal(driver, selectors["periodo"])
 
 
 def coleta_assistencia_veniti(driver, selectors, links, values):
