@@ -1,10 +1,12 @@
 from src.common import ui_actions
+import time
 
 
 def coleta_atendimentos(driver, selectors, link):
     ui_actions.carregar_url(driver, link)
-    ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atendimentos_1"])
+    ui_actions.detectar_e_clicar_n_elementos(driver, selectors["busca"])
     ui_actions.preencher_periodo_mensal(driver, selectors["periodo"])
+    ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atributos"])
 
 
 def coleta_assistencia_veniti(driver, selectors, links, values):
