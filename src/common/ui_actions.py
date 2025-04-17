@@ -66,11 +66,11 @@ def detectar_elemento(driver, by, value, timeout=10):
         raise
 
 
-def detectar_e_clicar_elemento(driver, by, value, timeout=10):
+def detectar_e_clicar_elemento(driver, by, value):
     try:
-        elemento = WebDriverWait(driver, timeout).until(EC.element_to_be_clickable((by, value)))
-        elemento.click()
-        time.sleep(1)
+        print(by, value)
+        elemento = detectar_elemento(driver, by, value)
+        clicar_elemento(elemento)
     except Exception as e:
         print(f"Error clicking element: {e}")
         raise
@@ -82,7 +82,6 @@ def detectar_e_clicar_n_elementos(driver, selectors):
         for i, (campo, info) in enumerate(items):
             by = info['by']
             value = info['value']
-            print(by, value)
             detectar_e_clicar_elemento(driver, by, value)
     except Exception as e:
         print(f"Error detecting or cliking an element: {e}")
