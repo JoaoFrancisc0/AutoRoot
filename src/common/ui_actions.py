@@ -29,13 +29,24 @@ def preencher_elemento(elemento, value):
         raise
 
 
-def preencher_periodo_mensal(driver, selectors):
+def preencher_periodo_mensal_atual(driver, selectors):
     numMes = date_utils.get_month_number()
     numAno = date_utils.get_year()
+        
     dataInicio = f"01/{numMes}/{numAno}"
     dataFinal = f"31/{numMes}/{numAno}"
     detectar_e_preencher_campo_data(driver, selectors["inicio"], dataInicio)
     detectar_e_preencher_campo_data(driver, selectors["final"], dataFinal)
+
+
+def preencher_periodo_mensal_passado(driver, selectors):
+    numMes = date_utils.get_previous_month_number()
+    numAno = date_utils.get_previous_year()
+        
+    dataInicio = f"01/{numMes}/{numAno}"
+    dataFinal = f"31/{numMes}/{numAno}"
+    detectar_e_preencher_campo_data(driver, selectors["inicio"], dataInicio)
+    detectar_e_preencher_campo_data(driver, selectors["final"], dataFinal)    
 
 
 def detectar_e_preencher_campo_data(driver, selectors, data):
@@ -82,6 +93,7 @@ def detectar_e_clicar_n_elementos(driver, selectors):
         for i, (campo, info) in enumerate(items):
             by = info['by']
             value = info['value']
+            print(by, value)
             detectar_e_clicar_elemento(driver, by, value)
     except Exception as e:
         print(f"Error detecting or cliking an element: {e}")
@@ -105,6 +117,24 @@ def processo_de_login(driver, selectors, valuesLogin):
         raise
 
 
+def processo_de_login_com_reCAPTCHA(driver, selectors, valuesLogin):
+    try:
+        items = list(selectors.items())
+        for i, (campo, info) in enumerate(items):
+            by = info['by']
+            value = info['value']
+            elemento = detectar_elemento(driver, by, value)
+
+            if i == len(items) - 1:  # último item
+                resolver_reCAPTCHA()
+                clicar_elemento(elemento)
+            else:
+                preencher_elemento(elemento, valuesLogin[i])
+    except Exception as e:
+        print(f"Error in loging: {e}")
+        raise
+
+
 def confirmar_login(driver, selectors):
     try:
         by = selectors['by']
@@ -113,3 +143,7 @@ def confirmar_login(driver, selectors):
     except:
         # Confirmação não necessária
         pass
+
+
+def resolver_reCAPTCHA():
+    time.sleep(30)

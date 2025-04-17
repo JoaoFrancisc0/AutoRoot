@@ -64,7 +64,7 @@ def main(base_dir):
         ],
         [
             configs["supervisao_sga_env"]["USERNAME"],
-            configs["supervisao_sga_env"]["PASSWORD"]
+            configs["supervisao_sga_env"]["PASSWORD"],
         ]
     )
 
