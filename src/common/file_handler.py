@@ -1,6 +1,7 @@
 import os
 import pandas as pd
 import time
+from common import date_utils
 
 
 def get_download_folder():
@@ -113,4 +114,46 @@ def rename_file(file_path, file_type):
         return new_path
     except Exception as e:
         print(f"Error renaming file: {e}")
+        raise
+
+
+def rename_file_atual(caminho_arquivo, tipo):
+    """Renomeia o arquivo para um nome mais amigável."""
+    try:
+        namMes = date_utils.get_month_name()
+        numAno = date_utils.get_year()
+        pasta, _ = os.path.split(caminho_arquivo)
+        novo_nome = f"{tipo}_{namMes}_{numAno}.xlsx"
+        caminho_novo = os.path.join(pasta, novo_nome)
+        os.rename(caminho_arquivo, caminho_novo)
+        return caminho_novo
+    except FileNotFoundError:
+        print(f"Arquivo não encontrado: {caminho_arquivo}")
+        raise
+    except PermissionError:
+        print(f"Permissão negada para renomear o arquivo: {caminho_arquivo}")
+        raise
+    except Exception as e:
+        print(f"Erro inesperado ao renomear o arquivo: {e}")
+        raise
+
+
+def rename_file_previous(caminho_arquivo, tipo):
+    """Renomeia o arquivo para um nome mais amigável."""
+    try:
+        namMes = date_utils.get_previous_month_name()
+        numAno = date_utils.get_previous_year()
+        pasta, _ = os.path.split(caminho_arquivo)
+        novo_nome = f"{tipo}_{namMes}_{numAno}.xlsx"
+        caminho_novo = os.path.join(pasta, novo_nome)
+        os.rename(caminho_arquivo, caminho_novo)
+        return caminho_novo
+    except FileNotFoundError:
+        print(f"Arquivo não encontrado: {caminho_arquivo}")
+        raise
+    except PermissionError:
+        print(f"Permissão negada para renomear o arquivo: {caminho_arquivo}")
+        raise
+    except Exception as e:
+        print(f"Erro inesperado ao renomear o arquivo: {e}")
         raise

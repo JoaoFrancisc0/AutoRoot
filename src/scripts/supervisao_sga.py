@@ -9,6 +9,7 @@ def coleta_boleto_fechamento_mensal(driver, selectors, link):
     ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atributos"])
     caminho_arquivo = file_handler.wait_download(tipo)
     caminho_arquivo = file_handler.convert_file(caminho_arquivo)
+    caminho_arquivo = file_handler.rename_file_previous(caminho_arquivo, tipo)
 
 
 def coleta_supervisao_sga(driver, selectors, links, values):
