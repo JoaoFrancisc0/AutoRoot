@@ -3,6 +3,7 @@ from googleapiclient.http import MediaFileUpload
 from google.auth.transport.requests import Request
 from google.oauth2 import service_account
 
+
 # Authenticates with the Google Drive API
 def authenticate(base_dir, service_account_file='credenciais.json', scopes='https://www.googleapis.com/auth/drive'):
     try:
@@ -17,6 +18,7 @@ def authenticate(base_dir, service_account_file='credenciais.json', scopes='http
         print(f"Error authenticating with the Google Drive API: {e}")
         raise
 
+
 # Searches for a report file in a specified Google Drive folder
 def find_report(service, file_name, folder_id):
     try:
@@ -28,6 +30,7 @@ def find_report(service, file_name, folder_id):
     except Exception as e:
         print(f"Error searching file in Google Drive: {e}")
         raise
+
 
 # Uploads or updates a report file to Google Drive, converting to Google Sheets format
 def upload_report(service, file_path, parent_folder_id):
