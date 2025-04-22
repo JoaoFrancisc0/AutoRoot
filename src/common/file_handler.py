@@ -138,7 +138,7 @@ def rename_file_atual(caminho_arquivo, tipo):
         raise
 
 
-def rename_file_previous(caminho_arquivo, tipo):
+def rename_file_previous_month(caminho_arquivo, tipo):
     """Renomeia o arquivo para um nome mais amigável."""
     try:
         namMes = date_utils.get_previous_month_name()

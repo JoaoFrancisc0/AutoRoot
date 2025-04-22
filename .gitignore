@@ -1,5 +1,5 @@
 # arquivos de configuração sensíveis
-resources/envs/*.env
+resources/configs/*.json
 resources/selectors/*.json
 resources/credenciais.json
 

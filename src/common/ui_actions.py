@@ -108,10 +108,10 @@ def processo_de_login(driver, selectors, valuesLogin):
             value = info['value']
             elemento = detectar_elemento(driver, by, value)
 
-            if i == len(items) - 1:  # último item
-                clicar_elemento(elemento)
+            if campo in valuesLogin:
+                preencher_elemento(elemento, valuesLogin[campo])
             else:
-                preencher_elemento(elemento, valuesLogin[i])
+                clicar_elemento(elemento)
     except Exception as e:
         print(f"Error in loging: {e}")
         raise
@@ -125,11 +125,11 @@ def processo_de_login_com_reCAPTCHA(driver, selectors, valuesLogin):
             value = info['value']
             elemento = detectar_elemento(driver, by, value)
 
-            if i == len(items) - 1:  # último item
+            if campo in valuesLogin:
+                preencher_elemento(elemento, valuesLogin[campo])
+            else:
                 resolver_reCAPTCHA()
                 clicar_elemento(elemento)
-            else:
-                preencher_elemento(elemento, valuesLogin[i])
     except Exception as e:
         print(f"Error in loging: {e}")
         raise

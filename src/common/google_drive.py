@@ -54,7 +54,7 @@ def upload_report(service, file_path, parent_folder_id):
                 media_body=media,
                 fields="id, name"
             ).execute()
-            print(f"File uploaded and converted to Google Sheets: {file.get('name')} (ID: {file.get('id')})")
+            print(f"File uploaded: {file.get('name')} (ID: {file.get('id')})")
     except Exception as e:
         print(f"Error uploading to Google Drive: {e}")
         raise
