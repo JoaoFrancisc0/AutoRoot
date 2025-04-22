@@ -1,7 +1,4 @@
-from googleapiclient.discovery import build
-from googleapiclient.http import MediaFileUpload
-from google.auth.transport.requests import Request
-from google.oauth2 import service_account
+from common import build, MediaFileUpload, Request, service_account
 
 
 # Authenticates with the Google Drive API

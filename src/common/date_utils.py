@@ -1,6 +1,4 @@
-import locale
-from datetime import datetime, timedelta
-from unidecode import unidecode
+from common import locale, datetime, timedelta, unidecode
 
 
 # Seta o local para português do Brasil

@@ -1,5 +1,4 @@
 from src.common import ui_actions
-import time
 
 
 def login_veniti(driver, login_url, home_url, selectors, values):
@@ -16,7 +15,7 @@ def coleta_atendimentos(service, driver, selectors, url, folder_id, tipo):
     ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atributos"])
 
 
-def coleta_assistencia_veniti(service, driver, selectors, configs):
+def coleta_veniti(service, driver, selectors, configs):
     url = configs["url"]
     values = configs["credenciais"]
     folder_id = configs["folder_id"]    

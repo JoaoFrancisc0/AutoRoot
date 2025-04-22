@@ -1,7 +1,4 @@
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from common import date_utils
-import time
+from common import WebDriverWait, EC, time, date_utils
 
 
 def carregar_url(driver, url, timeout=10):

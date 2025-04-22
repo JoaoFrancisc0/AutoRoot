@@ -1,7 +1,4 @@
-import os
-import pandas as pd
-import time
-from common import date_utils
+from common import os, pd, time, date_utils
 
 
 def get_download_folder():

@@ -1,5 +1,4 @@
 from src.common import ui_actions, file_handler, google_drive
-import time
 
 
 def login_sga(driver, login_url, home_url, selectors, values):
@@ -21,7 +20,7 @@ def coleta_mensal(service, driver, selectors, url, folder_id, tipo):
     file_handler.remove_file(caminho_arquivo)
 
 
-def coleta_supervisao_sga(service, driver, selectors, configs):
+def coleta_sga(service, driver, selectors, configs):
     url = configs["url"]
     values = configs["credenciais"]
     folder_id = configs["folder_id"]

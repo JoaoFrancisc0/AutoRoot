@@ -1,5 +1,5 @@
 from common import driver_manager, config_loader, google_drive
-from scripts import assistencia_veniti, supervisao_sga
+from scripts import sga, veniti
 
 
 def carregar_configuracoes(base_dir):
@@ -23,12 +23,12 @@ def autenticar_google_drive(base_dir):
     return google_drive.authenticate(base_dir)
 
 
-def automacao_assistencia_veniti(service, driver, selectors, configs):
-    assistencia_veniti.coleta_assistencia_veniti(service, driver, selectors, configs)
+def automacao_veniti(service, driver, selectors, configs):
+    veniti.coleta_veniti(service, driver, selectors, configs)
 
 
-def automacao_supervisao_sga(service, driver, selectors, configs):
-    supervisao_sga.coleta_supervisao_sga(service, driver, selectors, configs)
+def automacao_sga(service, driver, selectors, configs):
+    sga.coleta_sga(service, driver, selectors, configs)
 
 
 def main(base_dir):
@@ -37,12 +37,12 @@ def main(base_dir):
     
     configs = carregar_configuracoes(base_dir)
     
-    automacao_assistencia_veniti(service, driver,
+    automacao_veniti(service, driver,
         configs["assistencia_veniti_selectors"],
         configs["assistencia_veniti_configs"]
     )
 
-    automacao_supervisao_sga(service, driver,
+    automacao_sga(service, driver,
         configs["supervisao_sga_selectors"],
         configs["supervisao_sga_configs"]
     )
