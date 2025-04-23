@@ -11,7 +11,7 @@ def get_datas():
 # ============================================================================================ #
 
 def verificacao_data_veniti(dia, dia_semana, hora):
-    if (True):
+    if (False):
         return True
     return False
 
@@ -32,7 +32,7 @@ def agendamento_coleta_conjuntura(dia, dia_semana, hora):
 # =========================================================================================== #
 
 def verificacao_data_pabxvip(dia, dia_semana, hora):
-    if (True):
+    if (False):
         return True
     return False
 
@@ -47,7 +47,7 @@ def agendamento_coleta_tw(dia, dia_semana, hora):
 # =========================================================================================== #
 
 def verificacao_data_ileva(dia,dia_semana, hora):
-    if (True):
+    if (False):
         return True
     return False
 
@@ -80,7 +80,7 @@ def agendamento_coleta_pagamento(dia, dia_semana, hora):
 # =========================================================================================== #
 
 def verificacao_data_kommo(dia, dia_semana, hora):
-    if (True):
+    if (False):
         return True
     return False
 
@@ -101,7 +101,7 @@ def verificacao_data_sga(dia, dia_semana, hora):
 
 
 def agendamento_boleto_fechamento_mensal(dia, dia_semana, hora):
-    if (True):
+    if (False):
         return True
     return False
 
@@ -118,7 +118,7 @@ def agendamento_boleto_fechamento_semanal_e_veiculo_cancelamento_semanal(dia, di
     return False
 
 
-def agendamento_cancelamentos_com_rastreador(dia, dia_semana, hora):
+def agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora):
     if (True):
         return True
     return False
