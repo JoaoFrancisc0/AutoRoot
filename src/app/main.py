@@ -37,15 +37,9 @@ def main(base_dir):
     
     configs = carregar_configuracoes(base_dir)
     
-    automacao_veniti(service, driver,
-        configs["assistencia_veniti_selectors"],
-        configs["assistencia_veniti_configs"]
-    )
+    automacao_veniti(service, driver, configs["assistencia_veniti_selectors"], configs["assistencia_veniti_configs"])
 
-    automacao_sga(service, driver,
-        configs["supervisao_sga_selectors"],
-        configs["supervisao_sga_configs"]
-    )
+    automacao_sga(service, driver, configs["supervisao_sga_selectors"], configs["supervisao_sga_configs"])
 
     print("Automação finalizada.")
     input("Pressione Enter para sair...")

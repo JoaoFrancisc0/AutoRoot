@@ -1,4 +1,5 @@
 from src.common import ui_actions
+from app import scheduler
 
 
 def login_veniti(driver, login_url, home_url, selectors, values):
@@ -16,8 +17,11 @@ def coleta_atendimentos(service, driver, selectors, url, folder_id, tipo):
 
 
 def coleta_veniti(service, driver, selectors, configs):
-    url = configs["url"]
-    values = configs["credenciais"]
-    folder_id = configs["folder_id"]    
-    login_veniti(driver, url["login_url"], url["home_url"], selectors, values)
-    coleta_atendimentos(service, driver, selectors, url["atendimento_url"], folder_id, tipo="atendimentos")
+    dia, dia_semana, hora = scheduler.get_datas()
+    if (scheduler.verificacao_data_veniti(dia, dia_semana, hora)):
+        url = configs["url"]
+        values = configs["credenciais"]
+        folder_id = configs["folder_id"]    
+        login_veniti(driver, url["login_url"], url["home_url"], selectors, values)
+        if (scheduler.agendamento_coleta_atendimentos(dia, dia_semana, hora)):
+            coleta_atendimentos(service, driver, selectors, url["atendimento_url"], folder_id, tipo="atendimentos")

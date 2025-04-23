@@ -54,3 +54,19 @@ def get_year():
 
 def get_previous_year():
     return get_formatted_previous_date("%Y")
+
+
+def get_day():
+    return get_formatted_date("%d")
+
+
+def get_weekday():
+    return get_formatted_date("%A")
+
+
+def get_current_hour():
+    return datetime.now().hour
+
+
+def get_current_minute():
+    return datetime.now().minute

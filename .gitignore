@@ -1,3 +1,6 @@
+# Agendamento das execuções
+src/app/scheduler_dev.py
+
 # arquivos de configuração sensíveis
 resources/configs/*.json
 resources/selectors/*.json
