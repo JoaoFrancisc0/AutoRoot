@@ -14,14 +14,26 @@
         "value": "//button[@type='submit']"
       }
     },
-    "home": {
-      "menu": {
-        "by": "class_name",
-        "value": "menu-opcao"
+    "setor": {
+      "setorx": {
+        "botaox": {
+          "by": "xpath",
+          "value": "//a[@id='setorx']"
+        },
+        "divx": {
+          "by": "xpath",
+          "value": "//a[@id='setorx']"
+        }
       },
-      "logout": {
-        "by": "xpath",
-        "value": "//a[@id='logout']"
+      "setory": {
+        "botaoy": {
+          "by": "xpath",
+          "value": "//a[@id='setory']"
+        },
+        "divy": {
+          "by": "xpath",
+          "value": "//a[@id='setory']"
+        }
       }
     }
   }

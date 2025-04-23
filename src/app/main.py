@@ -4,13 +4,13 @@ from scripts import sga, veniti
 
 def carregar_configuracoes(base_dir):
     return {
-        "assistencia_tw_configs": config_loader.load_json("assistencia_tw", base_dir, 'configs'),
-        "assistencia_veniti_configs": config_loader.load_json("assistencia_veniti", base_dir, 'configs'),
-        "evento_ileva_configs": config_loader.load_json("evento_ileva", base_dir, 'configs'),
-        "evento_kommo_configs": config_loader.load_json("evento_kommo", base_dir, 'configs'),
-        "supervisao_sga_configs": config_loader.load_json("supervisao_sga", base_dir, 'configs'),
-        "assistencia_veniti_selectors": config_loader.load_json("assistencia_veniti", base_dir, 'selectors'),
-        "supervisao_sga_selectors": config_loader.load_json("supervisao_sga", base_dir, 'selectors')
+        "pabxvip_configs": config_loader.load_json("pabxvip", base_dir, 'configs'),
+        "veniti_configs": config_loader.load_json("veniti", base_dir, 'configs'),
+        "ileva_configs": config_loader.load_json("ileva", base_dir, 'configs'),
+        "kommo_configs": config_loader.load_json("kommo", base_dir, 'configs'),
+        "sga_configs": config_loader.load_json("sga", base_dir, 'configs'),
+        "veniti_selectors": config_loader.load_json("veniti", base_dir, 'selectors'),
+        "sga_selectors": config_loader.load_json("sga", base_dir, 'selectors')
     }
 
 
@@ -37,9 +37,9 @@ def main(base_dir):
     
     configs = carregar_configuracoes(base_dir)
     
-    automacao_veniti(service, driver, configs["assistencia_veniti_selectors"], configs["assistencia_veniti_configs"])
+    automacao_veniti(service, driver, configs["veniti_selectors"], configs["veniti_configs"])
 
-    automacao_sga(service, driver, configs["supervisao_sga_selectors"], configs["supervisao_sga_configs"])
+    automacao_sga(service, driver, configs["sga_selectors"], configs["sga_configs"])
 
     print("Automação finalizada.")
     input("Pressione Enter para sair...")
