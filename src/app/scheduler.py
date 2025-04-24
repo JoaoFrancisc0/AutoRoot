@@ -11,7 +11,7 @@ def get_datas():
 # ============================================================================================ #
 
 def verificacao_data_veniti(dia, dia_semana, hora):
-    if (False):
+    if (True):
         return True
     return False
 
@@ -95,7 +95,7 @@ def agendamento_coleta_kommo(dia, dia_semana, hora):
 # =========================================================================================== #
 
 def verificacao_data_sga(dia, dia_semana, hora):
-    if (True):
+    if (False):
         return True
     return False
 
