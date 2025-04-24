@@ -47,9 +47,14 @@ def preencher_periodo_mensal_passado(driver, selectors):
 
 
 def preencher_periodo_semanal(driver, selectors):
-    if date_utils.get_day() in [1, 2, 3, 4, 5, 6, 7]:
-        dataInicio = date_utils.get_previous_week_start_date()
-        dataFinal = date_utils.get_previous_week_end_date()
+    numDia = date_utils.get_day()
+    numMes = date_utils.get_month_number()
+    numAno = date_utils.get_year()
+
+    dataInicio = date_utils.get_last_friday()
+    dataFinal = f"{numDia}/{numMes}/{numAno}"
+    detectar_e_preencher_campo_data(driver, selectors["inicio"], dataInicio)
+    detectar_e_preencher_campo_data(driver, selectors["final"], dataFinal)    
 
 
 def detectar_e_preencher_campo_data(driver, selectors, data):

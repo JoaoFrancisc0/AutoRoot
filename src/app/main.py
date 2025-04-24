@@ -31,21 +31,19 @@ def automacao_sga(service, driver, selectors, configs):
     sga.coleta_sga(service, driver, selectors, configs)
 
 
-# def main(base_dir):
-#     service = autenticar_google_drive(base_dir)
-#     driver = inicializar_driver()
-    
-#     configs = carregar_configuracoes(base_dir)
-    
-#     automacao_veniti(service, driver, configs["veniti_selectors"], configs["veniti_configs"])
-
-#     automacao_sga(service, driver, configs["sga_selectors"], configs["sga_configs"])
-
-#     print("Automação finalizada.")
-#     input("Pressione Enter para sair...")
-
 def main(base_dir):
-    date_utils.get_last_friday()
+    service = autenticar_google_drive(base_dir)
+    driver = inicializar_driver()
+    
+    configs = carregar_configuracoes(base_dir)
+    
+    automacao_veniti(service, driver, configs["veniti_selectors"], configs["veniti_configs"])
+
+    automacao_sga(service, driver, configs["sga_selectors"], configs["sga_configs"])
+
+    print("Automação finalizada.")
+    input("Pressione Enter para sair...")
+
 
 if __name__ == "__main__":
     import os

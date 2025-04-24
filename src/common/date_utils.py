@@ -76,5 +76,4 @@ def get_last_friday():
     today = datetime.today()
     offset = (today.weekday() - 4) % 7 or 7 # 4 is Friday (Monday=0)
     last_friday = today - timedelta(days=offset)
-    print(last_friday.strftime("%d/%m/%Y"))
     return last_friday.strftime("%d/%m/%Y")

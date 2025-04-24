@@ -114,7 +114,7 @@ def rename_file(file_path, file_type):
         raise
 
 
-def rename_file_atual(caminho_arquivo, tipo):
+def rename_file_atual_month(caminho_arquivo, tipo):
     """Renomeia o arquivo para um nome mais amigável."""
     try:
         namMes = date_utils.get_month_name()
