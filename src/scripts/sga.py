@@ -23,8 +23,9 @@ def coleta_mensal(service, driver, atributos, periodo, url, folder_id, tipo, fec
     file_handler.remove_file(caminho_arquivo)
 
 
-def coleta_semanal(service, driver, selectors, url, folder_id, tipo):
-    pass
+def coleta_semanal(service, driver, atributos, periodo, url, folder_id, tipo):
+    ui_actions.carregar_url(driver, url)
+    ui_actions.preencher_periodo_semanal(driver, periodo)
 
 
 def coleta_sga(service, driver, selectors, configs):
@@ -42,5 +43,8 @@ def coleta_sga(service, driver, selectors, configs):
 
         if (scheduler.agendamento_boleto_fechamento_mensal(dia, dia_semana, hora)):
             coleta_mensal(service, driver, supervisao["atributos_boleto_fechamento"], supervisao["periodo_boleto_fechamento"], url["boleto_url"], folder_id["boleto_fechamento_folder_id"], tipo="boleto_fechamento", fechamento=True)
+        if (scheduler.agendamento_boleto_fechamento_semanal_e_veiculo_cancelamento_semanal(dia, dia_semana, hora)):
+            coleta_semanal(service, driver, supervisao["atributos_boleto_fechamento"], supervisao["periodo_boleto_fechamento"], url["boleto_url"], folder_id["geral_semanal_folder_id"], tipo="boleto_fechamento_semanal")
+            coleta_semanal(service, driver, supervisao["atributos_veiculo_cancelamento"], supervisao["periodo_veiculo_cancelamento"], url["veiculo_url"], folder_id["geral_semanal_folder_id"], tipo="boleto_fechamento_semanal")
         if (scheduler.agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora)):
             coleta_mensal(service, driver, rastreamento["atributos_veiculos_cancelamentos_com_rastreador"], rastreamento["periodo_veiculos_cancelamentos_com_rastreador"], url["veiculo_url"], folder_id["veiculo_cancelamento_com_rastreador_folder_id"], tipo="veiculo_cancelamento_com_rastreador", fechamento=False)

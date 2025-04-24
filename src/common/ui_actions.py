@@ -46,6 +46,12 @@ def preencher_periodo_mensal_passado(driver, selectors):
     detectar_e_preencher_campo_data(driver, selectors["final"], dataFinal)    
 
 
+def preencher_periodo_semanal(driver, selectors):
+    if date_utils.get_day() in [1, 2, 3, 4, 5, 6, 7]:
+        dataInicio = date_utils.get_previous_week_start_date()
+        dataFinal = date_utils.get_previous_week_end_date()
+
+
 def detectar_e_preencher_campo_data(driver, selectors, data):
     by = selectors['by']
     value = selectors['value']
