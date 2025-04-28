@@ -10,39 +10,45 @@ def login_sga(driver, login_url, home_url, selectors, values):
 
 
 def coleta_mensal(service, driver, atributos, periodo, url, folder_id, tipo, fechamento):
-    ui_actions.carregar_url(driver, url)
-    if (fechamento):
-        ui_actions.preencher_periodo_mensal_passado(driver, periodo)
-    else:
-        ui_actions.preencher_periodo_mensal_atual(driver, periodo)
-    ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
-    caminho_arquivo = file_handler.wait_download(tipo)
-    caminho_arquivo = file_handler.convert_file_html(caminho_arquivo)
-    caminho_arquivo = file_handler.rename_file_previous_month(caminho_arquivo, tipo)
-    google_drive.upload_report(service, caminho_arquivo, folder_id)
-    file_handler.remove_file(caminho_arquivo)
-
+    try:
+        ui_actions.carregar_url(driver, url)
+        if (fechamento):
+            ui_actions.preencher_periodo_mensal_passado(driver, periodo)
+        else:
+            ui_actions.preencher_periodo_mensal_atual(driver, periodo)
+        ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
+        caminho_arquivo = file_handler.wait_download(tipo)
+        caminho_arquivo = file_handler.convert_file_html(caminho_arquivo)
+        caminho_arquivo = file_handler.rename_file_previous_month(caminho_arquivo, tipo)
+        google_drive.upload_report(service, caminho_arquivo, folder_id)
+        file_handler.remove_file(caminho_arquivo)
+    except Exception as e:
+        print(f"Erro ao coletar mensal {tipo}: {e}")
 
 def coleta_semanal(service, driver, atributos, periodo, url, folder_id, tipo):
-    ui_actions.carregar_url(driver, url)
-    ui_actions.preencher_periodo_semanal(driver, periodo)
-    ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
-    caminho_arquivo = file_handler.wait_download(tipo)
-    caminho_arquivo = file_handler.convert_file_html(caminho_arquivo)
-    caminho_arquivo = file_handler.rename_file(caminho_arquivo, tipo)
-    google_drive.upload_report(service, caminho_arquivo, folder_id)
-    file_handler.remove_file(caminho_arquivo)
-
+    try:
+        ui_actions.carregar_url(driver, url)
+        ui_actions.preencher_periodo_semanal(driver, periodo)
+        ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
+        caminho_arquivo = file_handler.wait_download(tipo)
+        caminho_arquivo = file_handler.convert_file_html(caminho_arquivo)
+        caminho_arquivo = file_handler.rename_file(caminho_arquivo, tipo)
+        google_drive.upload_report(service, caminho_arquivo, folder_id)
+        file_handler.remove_file(caminho_arquivo)
+    except Exception as e:
+        print(f"Erro ao coletar semanal {tipo}: {e}")
 
 def coleta_geral(service, driver, atributos, url, folder_id, tipo):
-    ui_actions.carregar_url(driver, url)
-    ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
-    caminho_arquivo = file_handler.wait_download(tipo)
-    caminho_arquivo = file_handler.convert_file_html(caminho_arquivo)
-    caminho_arquivo = file_handler.rename_file(caminho_arquivo, tipo)
-    google_drive.upload_report(service, caminho_arquivo, folder_id)
-    file_handler.remove_file(caminho_arquivo)
-
+    try:
+        ui_actions.carregar_url(driver, url)
+        ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
+        caminho_arquivo = file_handler.wait_download(tipo)
+        caminho_arquivo = file_handler.convert_file_html(caminho_arquivo)
+        caminho_arquivo = file_handler.rename_file(caminho_arquivo, tipo)
+        google_drive.upload_report(service, caminho_arquivo, folder_id)
+        file_handler.remove_file(caminho_arquivo)
+    except Exception as e:
+        print(f"Erro ao coletar geral {tipo}: {e}")
 
 def coleta_sga(service, driver, selectors, configs):
     dia, dia_semana, hora = scheduler.get_datas()
