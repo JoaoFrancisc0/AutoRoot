@@ -32,10 +32,10 @@ def coleta_ileva(service, driver, selectors, configs):
 
         selectors = selectors["relatorio"]
         if (scheduler.agendamento_coleta_custo(dia, dia_semana, hora)):
-            coleta(service, driver, selectors["custo"], url["custo_url"], folder_id["custo_folder_id"], tipo="custo")
+            coleta(service, driver, selectors["custo"], url["custo_url"], folder_id["evento_folder_id"], tipo="custo")
         if (scheduler.agendamento_coleta_compra(dia, dia_semana, hora)):
-            coleta(service, driver, selectors["compra"], url["compra_url"], folder_id["compra_folder_id"], tipo="compra")
+            coleta(service, driver, selectors["compra"], url["compra_url"], folder_id["evento_folder_id"], tipo="compra")
         if (scheduler.agendamento_coleta_envolvido(dia, dia_semana, hora)):
-            coleta(service, driver, selectors["envolvido"], url["envolvido_url"], folder_id["envolvido_folder_id"], tipo="envolvido")
+            coleta(service, driver, selectors["envolvido"], url["envolvido_url"], folder_id["evento_folder_id"], tipo="envolvido")
         if (scheduler.agendamento_coleta_pagamento(dia, dia_semana, hora)):
-            coleta(service, driver, selectors["pagamento"], url["pagamento_url"], folder_id["pagamento_folder_id"], tipo="pagamento")
+            coleta(service, driver, selectors["pagamento"], url["pagamento_url"], folder_id["evento_folder_id"], tipo="pagamento")
