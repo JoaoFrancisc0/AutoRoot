@@ -17,7 +17,7 @@ def verificacao_data_veniti(dia, dia_semana, hora):
 
 
 def agendamento_coleta_atendimentos(dia, dia_semana, hora):
-    if (True):
+    if (False):
         return True
     return False
 
