@@ -81,7 +81,7 @@ def remove_file(file_path):
 
 
 # Converte o arquivo .xls (formato tabela HTML) para o formato .xlsx
-def convert_file(file_path):
+def convert_file_html(file_path):
     try:
         new_file_path = file_path + "x"  # just adds an 'x' to make .xlsx
 

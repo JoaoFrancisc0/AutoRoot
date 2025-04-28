@@ -23,7 +23,6 @@ def coleta_atendimentos(service, driver, selectors, url, folder_id, tipo):
 
 def coleta_mensal_passado(service, folder_id, tipo):
     caminho_arquivo = file_handler.wait_download(tipo)
-    caminho_arquivo = file_handler.convert_file(caminho_arquivo)
     caminho_arquivo = file_handler.rename_file_previous_month(caminho_arquivo, tipo)
     google_drive.upload_report(service, caminho_arquivo, folder_id)
     file_handler.remove_file(caminho_arquivo)
@@ -31,7 +30,6 @@ def coleta_mensal_passado(service, folder_id, tipo):
 
 def coleta_mensal_atual(service, folder_id, tipo):
     caminho_arquivo = file_handler.wait_download(tipo)
-    caminho_arquivo = file_handler.convert_file(caminho_arquivo)
     caminho_arquivo = file_handler.rename_file_atual_month(caminho_arquivo, tipo)
     google_drive.upload_report(service, caminho_arquivo, folder_id)
     file_handler.remove_file(caminho_arquivo)
@@ -49,4 +47,4 @@ def coleta_veniti(service, driver, selectors, configs):
 
         selectors = selectors["relatorio"]
         if (scheduler.agendamento_coleta_atendimentos(dia, dia_semana, hora)):
-            coleta_atendimentos(service, driver, selectors["atendimentos"], url["atendimento_url"], folder_id, tipo="atendimentos")
+            coleta_atendimentos(service, driver, selectors["atendimentos"], url["atendimento_url"], folder_id["atendimentos_folder_id"], tipo="atendimentos")
