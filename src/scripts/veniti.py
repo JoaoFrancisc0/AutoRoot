@@ -31,17 +31,12 @@ def coleta_atendimentos(service, driver, selectors, url, folder_id, tipo):
 def coleta_conjuntura(service, driver, selectors, url, folder_id, tipo):
     try:
         ui_actions.carregar_url(driver, url)
-        print(url)
-        print("teste1")
         ui_actions.detectar_e_clicar_elemento(driver, selectors["busca"])
-        print("teste2")
         if date_utils.get_day() == 1:
             ui_actions.preencher_periodo_mensal_passado(driver, selectors["periodo"])
         else:
             ui_actions.preencher_periodo_mensal_atual(driver, selectors["periodo"])
-        print("teste3")
         ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atributos"])
-        print("teste4")
         if date_utils.get_day() == 1:
             envio_mensal_passado(service, folder_id, tipo)
         else:
