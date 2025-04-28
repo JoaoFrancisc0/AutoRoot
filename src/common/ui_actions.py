@@ -65,6 +65,21 @@ def detectar_e_preencher_campo_data(driver, selectors, data):
         "arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('change'));",
         elemento, data
         )
+    
+
+def detectar_e_aguardar_valor_em_elemento(driver, selectors, valorEsperado, timeout=60):
+    try:
+        inicio = time.time()
+        by = selectors['by']
+        value = selectors['value']
+        while time.time() - inicio < timeout:
+            elemento = detectar_elemento(driver, by, value)
+            if elemento.text.strip() == valorEsperado:
+                return
+            time.sleep(5)
+    except Exception as e:
+        print(f"Error detecting element: {e}")
+        raise
 
 
 def clicar_elemento(elemento):

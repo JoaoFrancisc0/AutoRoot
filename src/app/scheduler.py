@@ -113,18 +113,18 @@ def agendamento_veiculo_evasao_mensal_e_veiculo_geral(dia, dia_semana, hora):
 
 
 def agendamento_boleto_fechamento_semanal_e_veiculo_geral(dia, dia_semana, hora):
-    if (True):
+    if (False):
         return True
     return False
 
 
 def agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora):
-    if (True):
+    if (False):
         return True
     return False
 
 
 def agendamento_contrato(dia, dia_semana, hora):
-    if (True):
+    if (False):
         return True
     return False

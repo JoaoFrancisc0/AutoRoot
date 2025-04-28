@@ -14,7 +14,7 @@ def coleta_atendimentos(service, driver, selectors, url, folder_id, tipo):
     ui_actions.detectar_e_clicar_n_elementos(driver, selectors["busca"])
     ui_actions.preencher_periodo_mensal_atual(driver, selectors["periodo"])
     ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atributos"])
-    # aguardar o valor de ["download"]["status"] ser = Exportado
+    ui_actions.detectar_e_aguardar_valor_em_elemento(driver, selectors["download"]["status"], "EXPORTADO")
     # clicar no botão ["download"]["download"]
 
 
