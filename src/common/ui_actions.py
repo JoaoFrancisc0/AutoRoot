@@ -100,8 +100,15 @@ def detectar_elemento(driver, by, value, timeout=10):
         raise
 
 
-def detectar_e_clicar_elemento(driver, by, value):
+def detectar_e_clicar_elemento(driver, *args):
     try:
+        if len(args) == 1:
+            selector = args[0]
+            by = selector["by"]
+            value = selector["value"]
+        if len(args) == 2:
+            by = args[0]
+            value = args[1]
         print(by, value)
         elemento = detectar_elemento(driver, by, value)
         clicar_elemento(elemento)

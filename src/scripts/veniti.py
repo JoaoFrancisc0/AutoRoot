@@ -1,4 +1,4 @@
-from src.common import ui_actions
+from src.common import ui_actions, file_handler, google_drive, date_utils
 from app import scheduler
 
 
@@ -15,7 +15,27 @@ def coleta_atendimentos(service, driver, selectors, url, folder_id, tipo):
     ui_actions.preencher_periodo_mensal_atual(driver, selectors["periodo"])
     ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atributos"])
     ui_actions.detectar_e_aguardar_valor_em_elemento(driver, selectors["download"]["status"], "EXPORTADO")
-    # clicar no botão ["download"]["download"]
+    ui_actions.detectar_e_clicar_elemento(driver, selectors["download"]["download"])
+    if date_utils.get_day() == 1:
+        coleta_mensal_passado(service, folder_id, tipo)
+    else:
+        coleta_mensal_atual(service, folder_id, tipo)
+
+def coleta_mensal_passado(service, folder_id, tipo):
+    caminho_arquivo = file_handler.wait_download(tipo)
+    caminho_arquivo = file_handler.convert_file(caminho_arquivo)
+    caminho_arquivo = file_handler.rename_file_previous_month(caminho_arquivo, tipo)
+    google_drive.upload_report(service, caminho_arquivo, folder_id)
+    file_handler.remove_file(caminho_arquivo)
+
+
+def coleta_mensal_atual(service, folder_id, tipo):
+    caminho_arquivo = file_handler.wait_download(tipo)
+    caminho_arquivo = file_handler.convert_file(caminho_arquivo)
+    caminho_arquivo = file_handler.rename_file_atual_month(caminho_arquivo, tipo)
+    google_drive.upload_report(service, caminho_arquivo, folder_id)
+    file_handler.remove_file(caminho_arquivo)
+
 
 
 def coleta_veniti(service, driver, selectors, configs):
