@@ -47,7 +47,7 @@ def agendamento_coleta_tw(dia, dia_semana, hora):
 # =========================================================================================== #
 
 def verificacao_data_ileva(dia,dia_semana, hora):
-    if (True):
+    if (False):
         return True
     return False
 
@@ -95,7 +95,7 @@ def agendamento_coleta_kommo(dia, dia_semana, hora):
 # =========================================================================================== #
 
 def verificacao_data_sga(dia, dia_semana, hora):
-    if (False):
+    if (True):
         return True
     return False
 
@@ -107,7 +107,7 @@ def agendamento_boleto_fechamento_mensal(dia, dia_semana, hora):
 
 
 def agendamento_veiculo_evasao_mensal_e_veiculo_geral(dia, dia_semana, hora):
-    if (True):
+    if (False):
         return True
     return False
 
@@ -125,6 +125,6 @@ def agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora):
 
 
 def agendamento_contrato(dia, dia_semana, hora):
-    if (False):
+    if (True):
         return True
     return False
