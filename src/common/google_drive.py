@@ -44,7 +44,8 @@ def upload_report(service, file_path, parent_folder_id):
             file_metadata = {
                 "name": file_name,
                 "parents": [parent_folder_id],
-                "mimeType": "application/vnd.google-apps.spreadsheet"
+                # "mimeType": "application/vnd.google-apps.spreadsheet" Para google Sheets
+                "mimeType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" # Para Excel
             }
             file = service.files().create(
                 body=file_metadata,
