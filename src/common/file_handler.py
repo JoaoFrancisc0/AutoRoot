@@ -34,7 +34,7 @@ def find_new_file(arquivos_antes, extensoes=(".xlsx", ".xls")):
     return None
 
 
-def wait_download(tipo, extensoes=(".xlsx", ".xls"), timeout=60, recente_em_segundos=10):
+def wait_download(tipo, extensoes=(".xlsx", ".xls"), timeout=90, recente_em_segundos=10):
     """Aguarda o download de um novo arquivo .xlsx ou .xls, priorizando arquivos recentes."""
     try:
         caminho_download = get_download_folder()
@@ -93,7 +93,7 @@ def convert_file_html(file_path):
             for i, df in enumerate(dfs):
                 df.to_excel(writer, sheet_name=f"Sheet{i+1}", index=False)
 
-        print(f"Conversion completed: {new_file_path}")
+        # print(f"Conversion completed: {new_file_path}")
         remove_file(file_path)
         return new_file_path
     except Exception as e:

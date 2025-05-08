@@ -8,7 +8,6 @@ def authenticate(base_dir, service_account_file='credenciais.json', scopes='http
             scopes = [scopes]
         cred_path = base_dir / "resources" / service_account_file
         creds = service_account.Credentials.from_service_account_file(cred_path, scopes=scopes)
-        # print(creds)
         creds.refresh(Request())
         return build("drive", "v3", credentials=creds)
     except Exception as e:
@@ -19,7 +18,6 @@ def authenticate(base_dir, service_account_file='credenciais.json', scopes='http
 # Searches for a report file in a specified Google Drive folder
 def find_report(service, file_name, folder_id):
     try:
-        file_name = file_name[:-5] if file_name.endswith(".xlsx") else file_name
         query = f"name = '{file_name}' and '{folder_id}' in parents and trashed = false"
         results = service.files().list(q=query, fields="files(id, name)").execute()
         files = results.get("files", [])
@@ -39,7 +37,8 @@ def upload_report(service, file_path, parent_folder_id):
         if existing_file:
             file_id = existing_file["id"]
             service.files().update(fileId=file_id, media_body=media).execute()
-            print(f"File updated: {file_name} (ID: {file_id})")
+            # print(f"File updated: {file_name} (ID: {file_id})")
+            print(f"File updated: {file_name}\n")
         else:
             file_metadata = {
                 "name": file_name,
@@ -52,7 +51,8 @@ def upload_report(service, file_path, parent_folder_id):
                 media_body=media,
                 fields="id, name"
             ).execute()
-            print(f"File uploaded: {file.get('name')} (ID: {file.get('id')})")
+            # print(f"File uploaded: {file.get('name')} (ID: {file.get('id')})")
+            print(f"File uploaded: {file.get('name')}\n)")
     except Exception as e:
         print(f"Error uploading to Google Drive: {e}")
         raise

@@ -85,7 +85,7 @@ def detectar_e_aguardar_valor_em_elemento(driver, selectors, valorEsperado, time
 def clicar_elemento(elemento):
     try:
         elemento.click()
-        time.sleep(1)
+        time.sleep(0.8)
     except Exception as e:
         print(f"Error clicking element: {e}")
         raise
@@ -108,7 +108,7 @@ def detectar_e_clicar_elemento(driver, *args):
         if len(args) == 2:
             by = args[0]
             value = args[1]
-        print(by, value)
+        # print(by, value)
         elemento = detectar_elemento(driver, by, value)
         clicar_elemento(elemento)
     except Exception as e:
@@ -122,7 +122,6 @@ def detectar_e_clicar_n_elementos(driver, selectors):
         for i, (campo, info) in enumerate(items):
             by = info['by']
             value = info['value']
-            print(by, value)
             detectar_e_clicar_elemento(driver, by, value)
     except Exception as e:
         raise
@@ -174,4 +173,4 @@ def confirmar_login(driver, selectors):
 
 
 def resolver_reCAPTCHA():
-    time.sleep(30)
+    time.sleep(45)
