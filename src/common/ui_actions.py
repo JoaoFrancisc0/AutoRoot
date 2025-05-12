@@ -108,7 +108,7 @@ def detectar_e_clicar_elemento(driver, *args):
         if len(args) == 2:
             by = args[0]
             value = args[1]
-        # print(by, value)
+        print(by, value)
         elemento = detectar_elemento(driver, by, value)
         clicar_elemento(elemento)
     except Exception as e:

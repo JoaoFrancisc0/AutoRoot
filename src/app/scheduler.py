@@ -19,16 +19,14 @@ def verificacao_data_veniti(dia, dia_semana, hora):
 
 def agendamento_coleta_atendimentos(dia, dia_semana, hora):
     # hora 0
-    if(True):
-    # if (hora == 0):
+    if (hora == 0):
         return True
     return False
 
 
 def agendamento_coleta_conjuntura(dia, dia_semana, hora):
     # hora 0
-    if(True):
-    # if (hora == 0):
+    if (hora == 0):
         return True
     return False
 

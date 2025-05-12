@@ -52,7 +52,7 @@ def upload_report(service, file_path, parent_folder_id):
                 fields="id, name"
             ).execute()
             # print(f"File uploaded: {file.get('name')} (ID: {file.get('id')})")
-            print(f"File uploaded: {file.get('name')}\n)")
+            print(f"File uploaded: {file.get('name')}\n")
     except Exception as e:
         print(f"Error uploading to Google Drive: {e}")
         raise
