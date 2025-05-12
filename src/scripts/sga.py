@@ -78,12 +78,13 @@ def coleta_sga(service, driver, selectors, configs):
 
         if (scheduler.agendamento_boleto_fechamento_mensal(dia, dia_semana, hora)):
             coleta_mensal(service, driver, supervisao["atributos_boleto_fechamento"], supervisao["periodo_boleto_fechamento"], url["boleto_url"], folder_id["boleto_fechamento_folder_id"], tipo="boleto_fechamento", fechamento=True)
-        if (scheduler.agendamento_veiculo_evasao_mensal_e_veiculo_geral(dia, dia_semana, hora)):
-            pass
+        if (scheduler.agendamento_veiculo_evasao_mensal(dia, dia_semana, hora)):
             # coleta_mensal(service, driver, supervisao["atributos_veiculo_evasao"], supervisao["periodo_veiculo_evasao"], url["veiculo_url"], folder_id["veiculo_evasao_folder_id"], tipo="veiculo_evasao", fechamento=True)
-            coleta_geral(service, driver, supervisao["atributos_veiculo_geral"], url["veiculo_url"], folder_id["root_folder_id"], tipo="veiculo_geral")
-        if (scheduler.agendamento_boleto_fechamento_semanal_e_veiculo_geral(dia, dia_semana, hora)):
-            coleta_semanal(service, driver, supervisao["atributos_boleto_fechamento"], supervisao["periodo_boleto_fechamento"], url["boleto_url"], folder_id["root_folder_id"], tipo="boleto_fechamento_semanal")
+            pass
+        if (scheduler.agendamento_boleto_fechamento_semanal(dia, dia_semana, hora)):
+            # coleta_semanal(service, driver, supervisao["atributos_boleto_fechamento"], supervisao["periodo_boleto_fechamento"], url["boleto_url"], folder_id["root_folder_id"], tipo="boleto_fechamento_semanal")
+            pass
+        if (scheduler.agendamento_veiculo_geral(dia, dia_semana, hora)):
             coleta_geral(service, driver, supervisao["atributos_veiculo_geral"], url["veiculo_url"], folder_id["root_folder_id"], tipo="veiculo_geral")
         if (scheduler.agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora)):
             coleta_mensal(service, driver, rastreamento["atributos_veiculos_cancelamentos_com_rastreador"], rastreamento["periodo_veiculos_cancelamentos_com_rastreador"], url["veiculo_url"], folder_id["veiculo_cancelamento_com_rastreador_folder_id"], tipo="veiculo_cancelamento_com_rastreador", fechamento=False)
