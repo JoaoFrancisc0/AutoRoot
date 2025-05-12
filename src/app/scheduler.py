@@ -125,16 +125,23 @@ def agendamento_coleta_kommo(dia, dia_semana, hora):
     if (testando):
         return True
     
-    if (True):
+    # se não for fim de semana e hora 1 ou 13
+    if (dia_semana not in ["sábado", "domingo"] and hora in [7, 13]):
         return True
     return False
+
 
 # =========================================================================================== #
 # ========================================    SGA    ======================================== #
 # =========================================================================================== #
 
 def verificacao_data_sga(dia, dia_semana, hora):
-    if (False):
+    if (agendamento_boleto_fechamento_mensal(dia, dia_semana, hora) or
+        agendamento_veiculo_evasao_mensal(dia, dia_semana, hora) or
+        agendamento_boleto_fechamento_semanal(dia, dia_semana, hora) or 
+        agendamento_veiculo_geral(dia, dia_semana, hora) or
+        agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora) or 
+        agendamento_contrato(dia, dia_semana, hora)):
         return True
     return False
 
@@ -143,7 +150,11 @@ def agendamento_boleto_fechamento_mensal(dia, dia_semana, hora):
     if (testando):
         return True
 
-    if (False):
+    # Dia 5 se não for fim de semana ou dia 6 ou 7 se for segunda-feira
+    # e hora 17
+    if (((dia == "5" and dia_semana not in ["sábado", "domingo"]) or 
+        (dia_semana == "segunda-feira" and dia in ["6", "7"])) and 
+        hora == 17):
         return True
     return False
 
@@ -152,7 +163,11 @@ def agendamento_veiculo_evasao_mensal(dia, dia_semana, hora):
     if (testando):
         return True
     
-    if (True):
+    # Dia 1 se não for fim de semana ou dia 2 ou 3 se for segunda-feira
+    # e hora 17
+    if (((dia == "1" and dia_semana not in ["sábado", "domingo"]) or 
+        (dia_semana == "segunda-feira" and dia in ["2", "3"])) and 
+        hora == 17):
         return True
     return False
 
@@ -161,7 +176,8 @@ def agendamento_boleto_fechamento_semanal(dia, dia_semana, hora):
     if (testando):
         return True
 
-    if (True):
+    # Sexta-feira e hora 9
+    if (dia_semana == "sexta-feira" and hora == 9):
         return True
     return False
 
@@ -170,7 +186,14 @@ def agendamento_veiculo_geral(dia, dia_semana, hora):
     if (testando):
         return True
     
-    if (True):
+    # Sexta-feira e hora 9
+    if (dia_semana == "sexta-feira" and hora == 9):
+        return True
+    # Dia 1 se não for fim de semana ou dia 2 ou 3 se for segunda-feira
+    # e hora 17
+    if (((dia == "1" and dia_semana not in ["sábado", "domingo"]) or 
+        (dia_semana == "segunda-feira" and dia in ["2", "3"])) and 
+        hora == 17):
         return True
     return False
 
@@ -179,7 +202,8 @@ def agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora):
     if (testando):
         return True
     
-    if (False):
+    # Dia de semana e hora 17
+    if (dia_semana not in ["sábado", "domingo"] and hora == 17):
         return True
     return False
 
@@ -188,6 +212,7 @@ def agendamento_contrato(dia, dia_semana, hora):
     if (testando):
         return True
     
-    if (False):
+    # Dia de semana e hora 7 ou 13
+    if (dia_semana not in ["sábado", "domingo"] and hora in [7, 13]):
         return True
     return False

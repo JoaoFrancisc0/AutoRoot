@@ -3,63 +3,45 @@ from app import scheduler
 
 
 def login_sga(driver, login_url, home_url, selectors, values):
-    try:
-        ui_actions.carregar_url(driver, login_url)
-        ui_actions.confirmar_login(driver, selectors["confirmacao"])
-        ui_actions.processo_de_login_com_reCAPTCHA(driver, selectors["login"], values)
-        ui_actions.aguardar_url(driver, home_url)
-    except Exception as e:
-        print(f"Erro ao fazer login no SGA: {e}")
+    ui_actions.carregar_url(driver, login_url)
+    ui_actions.confirmar_login(driver, selectors["confirmacao"])
+    ui_actions.processo_de_login_com_reCAPTCHA(driver, selectors["login"], values)
+    ui_actions.aguardar_url(driver, home_url)
 
 
 def coleta_mensal(service, driver, atributos, periodo, url, folder_id, tipo, fechamento):
-    try:
-        ui_actions.carregar_url(driver, url)
-        if (fechamento):
-            ui_actions.preencher_periodo_mensal_passado(driver, periodo)
-        else:
-            ui_actions.preencher_periodo_mensal_atual(driver, periodo)
-        ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
-        caminho_arquivo = file_handler.wait_download(tipo)
-        caminho_arquivo = file_handler.convert_file_html(caminho_arquivo)
-        caminho_arquivo = file_handler.rename_file_previous_month(caminho_arquivo, tipo)
-        google_drive.upload_report(service, caminho_arquivo, folder_id)
-        file_handler.remove_file(caminho_arquivo)
-        return True
-    except Exception as e:
-        print(f"Erro ao coletar mensal {tipo}: {e}")
-        return False
+    ui_actions.carregar_url(driver, url)
+    if (fechamento):
+        ui_actions.preencher_periodo_mensal_passado(driver, periodo)
+    else:
+        ui_actions.preencher_periodo_mensal_atual(driver, periodo)
+    ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
+    caminho_arquivo = file_handler.wait_download(tipo)
+    caminho_arquivo = file_handler.convert_file_html(caminho_arquivo)
+    caminho_arquivo = file_handler.rename_file_previous_month(caminho_arquivo, tipo)
+    google_drive.upload_report(service, caminho_arquivo, folder_id)
+    file_handler.remove_file(caminho_arquivo)
 
 
 def coleta_semanal(service, driver, atributos, periodo, url, folder_id, tipo):
-    try:
-        ui_actions.carregar_url(driver, url)
-        ui_actions.preencher_periodo_semanal(driver, periodo)
-        ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
-        caminho_arquivo = file_handler.wait_download(tipo)
-        caminho_arquivo = file_handler.convert_file_html(caminho_arquivo)
-        caminho_arquivo = file_handler.rename_file(caminho_arquivo, tipo)
-        google_drive.upload_report(service, caminho_arquivo, folder_id)
-        file_handler.remove_file(caminho_arquivo)
-        return True
-    except Exception as e:
-        print(f"Erro ao coletar semanal {tipo}: {e}")
-        return False
+    ui_actions.carregar_url(driver, url)
+    ui_actions.preencher_periodo_semanal(driver, periodo)
+    ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
+    caminho_arquivo = file_handler.wait_download(tipo)
+    caminho_arquivo = file_handler.convert_file_html(caminho_arquivo)
+    caminho_arquivo = file_handler.rename_file(caminho_arquivo, tipo)
+    google_drive.upload_report(service, caminho_arquivo, folder_id)
+    file_handler.remove_file(caminho_arquivo)
 
 
 def coleta_geral(service, driver, atributos, url, folder_id, tipo):
-    try:
-        ui_actions.carregar_url(driver, url)
-        ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
-        caminho_arquivo = file_handler.wait_download(tipo)
-        caminho_arquivo = file_handler.convert_file_html(caminho_arquivo)
-        caminho_arquivo = file_handler.rename_file(caminho_arquivo, tipo)
-        google_drive.upload_report(service, caminho_arquivo, folder_id)
-        file_handler.remove_file(caminho_arquivo)
-        return True
-    except Exception as e:
-        print(f"Erro ao coletar geral {tipo}: {e}")
-        return False
+    ui_actions.carregar_url(driver, url)
+    ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
+    caminho_arquivo = file_handler.wait_download(tipo)
+    caminho_arquivo = file_handler.convert_file_html(caminho_arquivo)
+    caminho_arquivo = file_handler.rename_file(caminho_arquivo, tipo)
+    google_drive.upload_report(service, caminho_arquivo, folder_id)
+    file_handler.remove_file(caminho_arquivo)
 
 
 def coleta_sga(service, driver, selectors, configs):
@@ -78,15 +60,19 @@ def coleta_sga(service, driver, selectors, configs):
 
         if (scheduler.agendamento_boleto_fechamento_mensal(dia, dia_semana, hora)):
             coleta_mensal(service, driver, supervisao["atributos_boleto_fechamento"], supervisao["periodo_boleto_fechamento"], url["boleto_url"], folder_id["boleto_fechamento_folder_id"], tipo="boleto_fechamento", fechamento=True)
+        
+        if (scheduler.agendamento_boleto_fechamento_semanal(dia, dia_semana, hora)):
+            coleta_semanal(service, driver, supervisao["atributos_boleto_fechamento"], supervisao["periodo_boleto_fechamento"], url["boleto_url"], folder_id["root_folder_id"], tipo="boleto_fechamento_semanal")
+        
         if (scheduler.agendamento_veiculo_evasao_mensal(dia, dia_semana, hora)):
             # coleta_mensal(service, driver, supervisao["atributos_veiculo_evasao"], supervisao["periodo_veiculo_evasao"], url["veiculo_url"], folder_id["veiculo_evasao_folder_id"], tipo="veiculo_evasao", fechamento=True)
             pass
-        if (scheduler.agendamento_boleto_fechamento_semanal(dia, dia_semana, hora)):
-            # coleta_semanal(service, driver, supervisao["atributos_boleto_fechamento"], supervisao["periodo_boleto_fechamento"], url["boleto_url"], folder_id["root_folder_id"], tipo="boleto_fechamento_semanal")
-            pass
+        
         if (scheduler.agendamento_veiculo_geral(dia, dia_semana, hora)):
             coleta_geral(service, driver, supervisao["atributos_veiculo_geral"], url["veiculo_url"], folder_id["root_folder_id"], tipo="veiculo_geral")
+        
         if (scheduler.agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora)):
             coleta_mensal(service, driver, rastreamento["atributos_veiculos_cancelamentos_com_rastreador"], rastreamento["periodo_veiculos_cancelamentos_com_rastreador"], url["veiculo_url"], folder_id["veiculo_cancelamento_com_rastreador_folder_id"], tipo="veiculo_cancelamento_com_rastreador", fechamento=False)
+        
         if (scheduler.agendamento_contrato(dia, dia_semana, hora)):
             coleta_geral(service, driver, evento["atributos_contrato"], url["veiculo_url"], folder_id["root_folder_id"], tipo="contrato")

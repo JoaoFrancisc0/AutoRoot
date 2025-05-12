@@ -3,25 +3,17 @@ from app import scheduler
 
 
 def login_kommo(driver, login_url, home_url, selectors, values):
-    try:
-        ui_actions.carregar_url(driver, login_url)
-        ui_actions.processo_de_login(driver, selectors["login"], values)
-        ui_actions.aguardar_url(driver, home_url)
-    except Exception as e:
-        print(f"Erro ao fazer login no Pabxvip: {e}")
+    ui_actions.carregar_url(driver, login_url)
+    ui_actions.processo_de_login(driver, selectors["login"], values)
+    ui_actions.aguardar_url(driver, home_url)
 
 
 def coleta_geral(service, driver, atributos, folder_id, tipo):
-    try:
-        ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
-        caminho_arquivo = file_handler.wait_download(tipo)
-        caminho_arquivo = file_handler.rename_file(caminho_arquivo, tipo)
-        google_drive.upload_report(service, caminho_arquivo, folder_id)
-        file_handler.remove_file(caminho_arquivo)
-        return True
-    except Exception as e:
-        print(f"Erro ao coletar mensal {tipo}: {e}")
-        return False
+    ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
+    caminho_arquivo = file_handler.wait_download(tipo)
+    caminho_arquivo = file_handler.rename_file(caminho_arquivo, tipo)
+    google_drive.upload_report(service, caminho_arquivo, folder_id)
+    file_handler.remove_file(caminho_arquivo)
 
 
 def coleta_kommo(service, driver, selectors, configs):

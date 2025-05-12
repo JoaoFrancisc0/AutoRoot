@@ -8,17 +8,14 @@ def login_ileva(driver, login_url, home_url, selectors, values):
     
 
 def coleta(service, driver, atributos, url, folder_id, tipo):
-    try:
-        atributos = atributos["atributos"]
-        ui_actions.carregar_url(driver, url)
-        ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
-        caminho_arquivo = file_handler.wait_download(tipo)
-        caminho_arquivo = file_handler.convert_file_html(caminho_arquivo)
-        caminho_arquivo = file_handler.rename_file(caminho_arquivo, tipo)
-        google_drive.upload_report(service, caminho_arquivo, folder_id)
-        file_handler.remove_file(caminho_arquivo)
-    except Exception as e:
-        print(f"Erro ao coletar mensal {tipo}: {e}")
+    atributos = atributos["atributos"]
+    ui_actions.carregar_url(driver, url)
+    ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
+    caminho_arquivo = file_handler.wait_download(tipo)
+    caminho_arquivo = file_handler.convert_file_html(caminho_arquivo)
+    caminho_arquivo = file_handler.rename_file(caminho_arquivo, tipo)
+    google_drive.upload_report(service, caminho_arquivo, folder_id)
+    file_handler.remove_file(caminho_arquivo)
 
 
 def coleta_ileva(service, driver, selectors, configs):
@@ -39,3 +36,4 @@ def coleta_ileva(service, driver, selectors, configs):
             coleta(service, driver, selectors["envolvido"], url["envolvido_url"], folder_id["root_folder_id"], tipo="envolvido")
         if (scheduler.agendamento_coleta_pagamento(dia, dia_semana, hora)):
             coleta(service, driver, selectors["pagamento"], url["pagamento_url"], folder_id["root_folder_id"], tipo="pagamento")
+            

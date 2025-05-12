@@ -2,28 +2,16 @@ from common import WebDriverWait, EC, time, date_utils
 
 
 def carregar_url(driver, url, timeout=10):
-    try:
-        driver.get(url)
-        WebDriverWait(driver, timeout).until(lambda d: d.current_url == url)
-    except Exception as e:
-        print(f"Error loading URL: {e}")
-        raise
+    driver.get(url)
+    WebDriverWait(driver, timeout).until(lambda d: d.current_url == url)
 
 
 def aguardar_url(driver, url, timeout=10):
-    try:
-        WebDriverWait(driver, timeout).until(lambda d: d.current_url == url)
-    except Exception as e:
-        print(f"Error to load URL: {e}")
-        raise
+    WebDriverWait(driver, timeout).until(lambda d: d.current_url == url)
 
 
 def preencher_elemento(elemento, value):
-    try:
-        elemento.send_keys(value)
-    except Exception as e:
-        print(f"Error filling element: {e}")
-        raise
+    elemento.send_keys(value)
 
 
 def preencher_periodo_mensal_atual(driver, selectors):
@@ -68,108 +56,84 @@ def detectar_e_preencher_campo_data(driver, selectors, data):
     
 
 def detectar_e_aguardar_valor_em_elemento(driver, selectors, valorEsperado, timeout=60):
-    try:
-        inicio = time.time()
-        by = selectors['by']
-        value = selectors['value']
-        while time.time() - inicio < timeout:
-            elemento = detectar_elemento(driver, by, value)
-            if elemento.text.strip() == valorEsperado:
-                return
-            time.sleep(5)
-    except Exception as e:
-        print(f"Error detecting element: {e}")
-        raise
+    inicio = time.time()
+    by = selectors['by']
+    value = selectors['value']
+    while time.time() - inicio < timeout:
+        elemento = detectar_elemento(driver, by, value)
+        if elemento.text.strip() == valorEsperado:
+            return
+        time.sleep(5)
 
 
 def clicar_elemento(elemento):
     try:
         elemento.click()
         time.sleep(0.8)
-    except Exception as e:
-        print(f"Error clicking element: {e}")
-        raise
+    except Exception:
+        print(f"Error clicking element")
 
 
 def detectar_elemento(driver, by, value, timeout=10):
     try:
         elemento = WebDriverWait(driver, timeout).until(EC.presence_of_element_located((by, value)))
         return elemento
-    except Exception as e:
-        raise
+    except Exception:
+        print(f"Error detecting element")
 
 
 def detectar_e_clicar_elemento(driver, *args):
-    try:
-        if len(args) == 1:
-            selector = args[0]
-            by = selector["by"]
-            value = selector["value"]
-        if len(args) == 2:
-            by = args[0]
-            value = args[1]
-        print(by, value)
-        elemento = detectar_elemento(driver, by, value)
-        clicar_elemento(elemento)
-    except Exception as e:
-        print(f"Error clicking element: {e}")
-        raise
+    if len(args) == 1:
+        selector = args[0]
+        by = selector["by"]
+        value = selector["value"]
+    if len(args) == 2:
+        by = args[0]
+        value = args[1]
+    # print(by, value)
+    elemento = detectar_elemento(driver, by, value)
+    clicar_elemento(elemento)
 
 
 def detectar_e_clicar_n_elementos(driver, selectors):
-    try:
-        items = list(selectors.items())
-        for i, (campo, info) in enumerate(items):
-            by = info['by']
-            value = info['value']
-            detectar_e_clicar_elemento(driver, by, value)
-    except Exception as e:
-        raise
+    items = list(selectors.items())
+    for i, (campo, info) in enumerate(items):
+        by = info['by']
+        value = info['value']
+        detectar_e_clicar_elemento(driver, by, value)
 
 
 def processo_de_login(driver, selectors, valuesLogin):
-    try:
-        items = list(selectors.items())
-        for i, (campo, info) in enumerate(items):
-            by = info['by']
-            value = info['value']
-            elemento = detectar_elemento(driver, by, value)
+    items = list(selectors.items())
+    for i, (campo, info) in enumerate(items):
+        by = info['by']
+        value = info['value']
+        elemento = detectar_elemento(driver, by, value)
 
-            if campo in valuesLogin:
-                preencher_elemento(elemento, valuesLogin[campo])
-            else:
-                clicar_elemento(elemento)
-    except Exception as e:
-        print(f"Error in loging: {e}")
-        raise
+        if campo in valuesLogin:
+            preencher_elemento(elemento, valuesLogin[campo])
+        else:
+            clicar_elemento(elemento)
 
 
 def processo_de_login_com_reCAPTCHA(driver, selectors, valuesLogin):
-    try:
-        items = list(selectors.items())
-        for i, (campo, info) in enumerate(items):
-            by = info['by']
-            value = info['value']
-            elemento = detectar_elemento(driver, by, value)
+    items = list(selectors.items())
+    for i, (campo, info) in enumerate(items):
+        by = info['by']
+        value = info['value']
+        elemento = detectar_elemento(driver, by, value)
 
-            if campo in valuesLogin:
-                preencher_elemento(elemento, valuesLogin[campo])
-            else:
-                resolver_reCAPTCHA()
-                clicar_elemento(elemento)
-    except Exception as e:
-        print(f"Error in loging: {e}")
-        raise
+        if campo in valuesLogin:
+            preencher_elemento(elemento, valuesLogin[campo])
+        else:
+            resolver_reCAPTCHA()
+            clicar_elemento(elemento)
 
 
 def confirmar_login(driver, selectors):
-    try:
-        by = selectors['by']
-        value = selectors['value']
-        detectar_e_clicar_elemento(driver, by, value)
-    except:
-        # Confirmação não necessária
-        pass
+    by = selectors['by']
+    value = selectors['value']
+    detectar_e_clicar_elemento(driver, by, value)
 
 
 def resolver_reCAPTCHA():
