@@ -1,4 +1,4 @@
-from common import WebDriverWait, EC, time, date_utils
+from common import captcha_solver, WebDriverWait, EC, time, date_utils
 
 
 def carregar_url(driver, url, timeout=10):
@@ -116,7 +116,7 @@ def processo_de_login(driver, selectors, valuesLogin):
             clicar_elemento(elemento)
 
 
-def processo_de_login_com_reCAPTCHA(driver, selectors, valuesLogin):
+def processo_de_login_com_reCAPTCHA(driver, selectors, valuesLogin, login_url, site_name):
     items = list(selectors.items())
     for i, (campo, info) in enumerate(items):
         by = info['by']
@@ -126,7 +126,7 @@ def processo_de_login_com_reCAPTCHA(driver, selectors, valuesLogin):
         if campo in valuesLogin:
             preencher_elemento(elemento, valuesLogin[campo])
         else:
-            resolver_reCAPTCHA()
+            resolver_captcha(driver, login_url, site_name)
             clicar_elemento(elemento)
 
 
@@ -136,5 +136,7 @@ def confirmar_login(driver, selectors):
     detectar_e_clicar_elemento(driver, by, value)
 
 
-def resolver_reCAPTCHA():
-    time.sleep(45)
+def resolver_captcha(driver, login_url, site_name):
+    token = captcha_solver.reCAPTCHA(login_url, site_name)
+    driver.execute_script(f'document.getElementById("g-recaptcha-response").innerHTML = "{token}";')
+    print("Captcha resolvido com sucesso!")

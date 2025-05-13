@@ -5,6 +5,7 @@ src/app/scheduler_dev.py
 resources/configs/*.json
 resources/selectors/*.json
 resources/credenciais.json
+resources/2Captcha.json
 
 # arquivos genéricos
 *.ini
