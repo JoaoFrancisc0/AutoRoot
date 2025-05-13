@@ -69,7 +69,7 @@ def detectar_e_aguardar_valor_em_elemento(driver, selectors, valorEsperado, time
 def clicar_elemento(elemento):
     try:
         elemento.click()
-        time.sleep(0.8)
+        time.sleep(1)
     except Exception:
         print(f"Error clicking element")
 
