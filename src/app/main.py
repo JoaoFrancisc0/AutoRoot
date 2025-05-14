@@ -1,5 +1,5 @@
-from common import driver_manager, config_loader, google_drive
-from scripts import sga, veniti, ileva, pabxvip, kommo
+from src.common import driver_manager, config_loader, google_drive
+from src.scripts import sga, veniti, ileva, pabxvip, kommo
 
 
 def carregar_configuracoes(base_dir):

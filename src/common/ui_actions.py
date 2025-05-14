@@ -1,4 +1,4 @@
-from common import captcha_solver, WebDriverWait, EC, time, date_utils
+from src.common import captcha_solver, WebDriverWait, EC, time, date_utils
 
 
 def carregar_url(driver, url, timeout=10):

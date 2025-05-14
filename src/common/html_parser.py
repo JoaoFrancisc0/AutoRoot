@@ -1,4 +1,4 @@
-from common import BeautifulSoup
+from src.common import BeautifulSoup
 
 
 def add_quotes_to_columns(file_path, column_indices):

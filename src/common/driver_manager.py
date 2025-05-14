@@ -1,4 +1,4 @@
-from common import webdriver, Service, ChromeDriverManager
+from src.common import webdriver, Service, ChromeDriverManager
 
 
 # Configura o Chrome Driver options

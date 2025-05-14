@@ -1,4 +1,4 @@
-from common import build, MediaFileUpload, Request, service_account
+from src.common import build, MediaFileUpload, Request, service_account
 
 
 # Authenticates with the Google Drive API

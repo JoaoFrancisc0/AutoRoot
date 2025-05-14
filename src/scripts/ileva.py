@@ -1,5 +1,5 @@
 from src.common import ui_actions, file_handler, google_drive
-from app import scheduler
+from src.app import scheduler
 
 def login_ileva(driver, login_url, home_url, selectors, values):
     ui_actions.carregar_url(driver, login_url)

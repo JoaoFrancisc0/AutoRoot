@@ -1,4 +1,4 @@
-from common import locale, datetime, timedelta, unidecode
+from src.common import locale, datetime, timedelta, unidecode
 
 
 # Seta o local para português do Brasil

@@ -1,5 +1,4 @@
-import sys, os, json
-from twocaptcha import TwoCaptcha
+from src.common import sys, os, json, TwoCaptcha
 
 
 def ler_dados_api(site_name):

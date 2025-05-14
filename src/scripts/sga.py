@@ -1,5 +1,5 @@
 from src.common import ui_actions, file_handler, google_drive
-from app import scheduler
+from src.app import scheduler
 
 
 def login_sga(driver, login_url, home_url, selectors, values):

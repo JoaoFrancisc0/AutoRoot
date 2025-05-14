@@ -1,4 +1,4 @@
-from common import json
+from src.common import json
 
 
 # Carrega .json

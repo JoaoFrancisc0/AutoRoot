@@ -1,4 +1,4 @@
-from common import date_utils
+from src.common import date_utils
 
 testando = False
 # testando = True
@@ -148,7 +148,7 @@ def verificacao_data_sga(dia, dia_semana, hora):
 
 
 def agendamento_boleto_fechamento_mensal(dia, dia_semana, hora):
-    if (testando):
+    if (True):
         return True
 
     # Dia 5 se não for fim de semana ou dia 6 ou 7 se for segunda-feira
