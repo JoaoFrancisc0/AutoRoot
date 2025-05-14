@@ -148,7 +148,7 @@ def verificacao_data_sga(dia, dia_semana, hora):
 
 
 def agendamento_boleto_fechamento_mensal(dia, dia_semana, hora):
-    if (True):
+    if (testando):
         return True
 
     # Dia 5 se não for fim de semana ou dia 6 ou 7 se for segunda-feira
