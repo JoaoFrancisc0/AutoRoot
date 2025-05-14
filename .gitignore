@@ -1,5 +1,7 @@
-# Agendamento das execuções
-src/app/scheduler_dev.py
+# Arquivos de .exe
+build/
+dist/
+run.spec
 
 # arquivos de configuração sensíveis
 resources/configs/*.json

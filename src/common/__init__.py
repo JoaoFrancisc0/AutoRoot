@@ -8,6 +8,7 @@ from datetime import datetime, timedelta
 
 # Third-party libs
 import pandas as pd
+from pathlib import Path
 from unidecode import unidecode
 from bs4 import BeautifulSoup
 from selenium import webdriver
@@ -33,6 +34,7 @@ __all__ = [
 
     # Third-party
     "pd",
+    "Path",
     "unidecode",
     "BeautifulSoup",
     "webdriver",

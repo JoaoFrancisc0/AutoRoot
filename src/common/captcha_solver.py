@@ -1,20 +1,18 @@
-from src.common import sys, os, json, TwoCaptcha
+from src.common import sys, os, json, TwoCaptcha, Path
+
+
+def obter_resources_dir():
+    if getattr(sys, 'frozen', False):
+        path = Path(sys._MEIPASS) / 'resources' / '2Captcha.json'
+        return path
+    path = Path(__file__).resolve().parent.parent.parent / 'resources' / '2Captcha.json'
+    return path
 
 
 def ler_dados_api(site_name):
-    # Pega o diretório onde o script ou .exe está sendo executado
-    if getattr(sys, 'frozen', False):
-        # Estamos no .exe (PyInstaller define isso)
-        base_path = sys._MEIPASS if hasattr(sys, '_MEIPASS') else os.path.dirname(sys.executable)
-    else:
-        # Executando como script .py
-        base_path = os.path.dirname(os.path.abspath(__file__))
+    path = obter_resources_dir()
 
-    # Sobe até a raiz do projeto e acessa a pasta 'resources'
-    projeto_root = os.path.abspath(os.path.join(base_path, '..', '..'))  # de /common/ para raiz
-    caminho_arquivo = os.path.join(projeto_root, 'resources', '2Captcha.json')
-
-    with open(caminho_arquivo, 'r', encoding='utf-8') as f:
+    with open(path, 'r', encoding='utf-8') as f:
         dados = json.load(f)
         site_key = site_name + "_site_key"
 
