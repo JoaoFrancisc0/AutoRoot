@@ -187,10 +187,10 @@ def agendamento_veiculo_ativo_mensal(dia, dia_semana, hora):
     if (testando):
         return True
 
-    # Dia 1 se não for fim de semana ou dia 2 ou 3 se for segunda-feira
+    # Dia 5 se não for fim de semana ou dia 6 ou 7 se for segunda-feira
     # e hora 17
-    if (((dia == "1" and dia_semana not in ["sábado", "domingo"]) or 
-        (dia_semana == "segunda-feira" and dia in ["2", "3"])) and 
+    if (((dia == "5" and dia_semana not in ["sábado", "domingo"]) or 
+        (dia_semana == "segunda-feira" and dia in ["6", "7"])) and 
         hora == 17):
         return True
     return False
