@@ -71,7 +71,7 @@ def coleta_sga(service, driver, selectors, configs):
             coleta_mensal(service, driver, supervisao["atributos_veiculo_ativo"], supervisao["periodo_veiculo_ativo"], url["veiculo_url"], folder_id["veiculo_ativo_folder_id"], tipo="veiculo_ativo", fechamento=True)
         
         if (scheduler.agendamento_veiculo_ativo_semanal(dia, dia_semana, hora)):
-            coleta_semanal(service, driver, supervisao["atributos_veiculo_ativo"], supervisao["periodo_veiculo_ativo"], url["veiculo_url"], folder_id["root_folder_id"], tipo="veiculo_ativo")
+            coleta_semanal(service, driver, supervisao["atributos_veiculo_ativo"], supervisao["periodo_veiculo_ativo"], url["veiculo_url"], folder_id["root_folder_id"], tipo="veiculo_ativo_semanal")
 
         if (scheduler.agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora)):
             coleta_mensal(service, driver, rastreamento["atributos_veiculos_cancelamentos_com_rastreador"], rastreamento["periodo_veiculos_cancelamentos_com_rastreador"], url["veiculo_url"], folder_id["veiculo_cancelamento_com_rastreador_folder_id"], tipo="veiculo_cancelamento_com_rastreador", fechamento=False)

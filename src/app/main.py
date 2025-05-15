@@ -64,7 +64,6 @@ def main(base_dir):
     automacao_kommo(service, driver, configs["kommo_selectors"], configs["kommo_configs"])
 
     print("Automação finalizada.")
-    input("Pressione Enter para sair...")
 
 
 if __name__ == "__main__":

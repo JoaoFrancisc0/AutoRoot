@@ -7,7 +7,7 @@ def configure_driver_options():
     options.add_argument(
         "user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36"
     )
-    # options.add_argument("--headless")
+    options.add_argument("--headless")
     options.add_experimental_option("prefs", {
         "download.prompt_for_download": False,
         "download.directory_upgrade": True,
