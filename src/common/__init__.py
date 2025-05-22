@@ -4,6 +4,7 @@ import json
 import time
 import locale
 import sys
+import pyotp
 from datetime import datetime, timedelta
 
 # Third-party libs
@@ -29,6 +30,7 @@ __all__ = [
     "time",
     "locale",
     "sys",
+    "pyotp",
     "datetime",
     "timedelta",
 

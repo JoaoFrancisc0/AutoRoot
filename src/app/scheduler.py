@@ -207,6 +207,9 @@ def agendamento_veiculo_ativo_semanal(dia, dia_semana, hora):
 
 
 def agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora):
+    # Manutenção
+    return False
+    
     if (testando):
         return True
     

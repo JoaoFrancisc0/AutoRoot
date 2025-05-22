@@ -6,6 +6,7 @@ def login_sga(driver, login_url, home_url, selectors, values):
     ui_actions.carregar_url(driver, login_url)
     ui_actions.confirmar_login(driver, selectors["confirmacao"])
     ui_actions.processo_de_login_com_reCAPTCHA(driver, selectors["login"], values, login_url, site_name="sga")
+    ui_actions.resolver_2FA(driver, selectors["login"]["botao"], selectors["2FA"], site_name="sga")
     ui_actions.aguardar_url(driver, home_url)
 
 

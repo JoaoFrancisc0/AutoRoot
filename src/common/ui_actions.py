@@ -1,4 +1,5 @@
-from src.common import captcha_solver, WebDriverWait, EC, time, date_utils
+from src.common import auth_challenge_solver
+from src.common import WebDriverWait, EC, time, date_utils
 
 
 def carregar_url(driver, url, timeout=10):
@@ -82,6 +83,13 @@ def detectar_elemento(driver, by, value, timeout=10):
         print(f"Error detecting element")
 
 
+def detectar_e_preencher_elemento(driver, selector, valor_preenchimento):
+    by = selector["by"]
+    value = selector["value"]
+    elemento = detectar_elemento(driver, by, value)
+    preencher_elemento(elemento, valor_preenchimento)
+
+
 def detectar_e_clicar_elemento(driver, *args):
     if len(args) == 1:
         selector = args[0]
@@ -127,7 +135,6 @@ def processo_de_login_com_reCAPTCHA(driver, selectors, valuesLogin, login_url, s
             preencher_elemento(elemento, valuesLogin[campo])
         else:
             resolver_captcha(driver, login_url, site_name)
-            clicar_elemento(elemento)
 
 
 def confirmar_login(driver, selectors):
@@ -137,6 +144,13 @@ def confirmar_login(driver, selectors):
 
 
 def resolver_captcha(driver, login_url, site_name):
-    token = captcha_solver.reCAPTCHA(login_url, site_name)
+    token = auth_challenge_solver.reCAPTCHA(login_url, site_name)
     driver.execute_script(f'document.getElementById("g-recaptcha-response").innerHTML = "{token}";')
     print("Captcha resolvido com sucesso!")
+
+
+def resolver_2FA(driver, selector_botao, selecotr_2FA, site_name):
+    codigo = auth_challenge_solver.twoFA(site_name)
+    detectar_e_preencher_elemento(driver, selecotr_2FA, codigo)
+    detectar_e_clicar_elemento(driver, selector_botao)
+    
