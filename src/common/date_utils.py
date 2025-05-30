@@ -1,4 +1,4 @@
-from src.common import locale, datetime, timedelta, unidecode
+from src.common import locale, datetime, timedelta, unidecode, calendar
 
 
 # Seta o local para português do Brasil
@@ -77,3 +77,13 @@ def get_last_friday():
     offset = (today.weekday() - 4) % 7 or 7 # 4 is Friday (Monday=0)
     last_friday = today - timedelta(days=offset)
     return last_friday.strftime("%d/%m/%Y")
+
+
+def get_last_day_of_the_month(ano, mes):
+    _, ultimo_dia = calendar.monthrange(ano, mes)
+    return ultimo_dia
+
+
+def get_iso_date(date):
+    iso_date = datetime.strptime(date, "%d/%m/%Y").strftime("%Y-%m-%d")
+    return iso_date

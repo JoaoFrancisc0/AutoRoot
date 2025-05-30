@@ -1,15 +1,17 @@
 from src.common import driver_manager, config_loader, google_drive
-from src.scripts import sga, veniti, ileva, pabxvip, kommo
+from src.scripts import alfacb, sga, veniti, ileva, pabxvip, kommo
 
 
 def carregar_configuracoes(base_dir):
     return {
+        "alfacb_configs": config_loader.load_json("alfacb", base_dir, 'configs'),
         "pabxvip_configs": config_loader.load_json("pabxvip", base_dir, 'configs'),
         "veniti_configs": config_loader.load_json("veniti", base_dir, 'configs'),
         "sga_configs": config_loader.load_json("sga", base_dir, 'configs'),
         "ileva_configs": config_loader.load_json("ileva", base_dir, 'configs'),
         "kommo_configs": config_loader.load_json("kommo", base_dir, 'configs'),
 
+        "alfacb_selectors": config_loader.load_json("alfacb", base_dir, 'selectors'),
         "pabxvip_selectors": config_loader.load_json("pabxvip", base_dir, 'selectors'),
         "veniti_selectors": config_loader.load_json("veniti", base_dir, 'selectors'),
         "sga_selectors": config_loader.load_json("sga", base_dir, 'selectors'),
@@ -25,6 +27,10 @@ def inicializar_driver():
 
 def autenticar_google_drive(base_dir):
     return google_drive.authenticate(base_dir)
+
+
+def automacao_alfacb(service, driver, selectors, configs):
+    alfacb.coleta_alfacb(service, driver, selectors, configs)
 
 
 def automacao_veniti(service, driver, selectors, configs):
@@ -53,6 +59,8 @@ def main(base_dir):
     
     configs = carregar_configuracoes(base_dir)
     
+    automacao_alfacb(service, driver, configs["alfacb_selectors"], configs["alfacb_configs"])
+
     automacao_veniti(service, driver, configs["veniti_selectors"], configs["veniti_configs"])
 
     automacao_pabxvip(service, driver, configs["pabxvip_selectors"], configs["pabxvip_configs"])

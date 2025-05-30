@@ -10,6 +10,31 @@ def get_datas():
     hora = date_utils.get_current_hour()
     return dia, dia_semana, hora
 
+
+def get_last_day_of_the_month():
+    ultimo_dia_do_mes = date_utils.get_last_day_of_the_month(int(date_utils.get_year()), int(date_utils.get_month_number()))
+    return ultimo_dia_do_mes
+
+# =========================================================================================== #
+# ========================================  ALFACB  ========================================= #
+# =========================================================================================== #
+
+def verificacao_data_alfacb(dia, dia_semana, hora, ultimo_dia):
+    if (agendamento_coleta_ordem_de_servico(dia, dia_semana, hora, ultimo_dia)):
+        return True
+    return False
+
+
+def agendamento_coleta_ordem_de_servico(dia, dia_semana, hora, ultimo_dia):
+    if (testando):
+        return True
+
+    # ultimo dia do mês se for dia de semana ou então no primeiro dia util seguinte as 9h
+    # sexta feira as 9h
+    if (((dia == ultimo_dia and dia_semana not in ["sábado", "domingo"]) or dia_semana == "sexta-feira") and hora == 9):
+        return True
+    return False
+
 # ============================================================================================ #
 # =========================================  VENITI  ========================================= #
 # ============================================================================================ #
@@ -32,7 +57,7 @@ def agendamento_coleta_atendimentos(dia, dia_semana, hora):
 
 
 def agendamento_coleta_conjuntura(dia, dia_semana, hora):
-    if (testando):
+    if (True):
         return True
     
     # hora 0
@@ -208,13 +233,14 @@ def agendamento_veiculo_ativo_semanal(dia, dia_semana, hora):
 
 def agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora):
     # Manutenção
-    return False
+    if (True):
+        return False
     
     if (testando):
         return True
     
-    # Dia de semana e hora 17
-    if (dia_semana not in ["sábado", "domingo"] and hora == 17):
+    # Dia 10 se for dia de semana ou segunda se for dia 11 ou 12, ou sexta, às 9h
+    if (((dia == 10 and dia_semana not in ["sábado", "domingo"]) or (dia_semana == "segunda" and (dia == "11" or dia == "12")) or (dia_semana == "sexta-feira")) and hora == 9):
         return True
     return False
 

@@ -19,7 +19,10 @@ def coleta_mensal(service, driver, atributos, periodo, url, folder_id, tipo, fec
     ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
     caminho_arquivo = file_handler.wait_download(tipo)
     caminho_arquivo = file_handler.convert_file_html(caminho_arquivo)
-    caminho_arquivo = file_handler.rename_file_previous_month(caminho_arquivo, tipo)
+    if (fechamento):
+        caminho_arquivo = file_handler.rename_file_previous_month(caminho_arquivo, tipo)
+    else:
+        caminho_arquivo = file_handler.rename_file_atual_month(caminho_arquivo, tipo)
     google_drive.upload_report(service, caminho_arquivo, folder_id)
     file_handler.remove_file(caminho_arquivo)
 

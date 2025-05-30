@@ -5,6 +5,7 @@ import time
 import locale
 import sys
 import pyotp
+import calendar
 from datetime import datetime, timedelta
 
 # Third-party libs
@@ -31,6 +32,7 @@ __all__ = [
     "locale",
     "sys",
     "pyotp",
+    "calendar",
     "datetime",
     "timedelta",
 
