@@ -10,33 +10,40 @@ def login_veniti(driver, login_url, home_url, selectors, values):
 
 
 def coleta_atendimentos(service, driver, selectors, url, folder_id, tipo):
-    ui_actions.carregar_url(driver, url)
-    ui_actions.detectar_e_clicar_n_elementos(driver, selectors["busca"])
-    if date_utils.get_day() == 1:
-        ui_actions.preencher_periodo_mensal_passado(driver, selectors["periodo"])
-    else:
-        ui_actions.preencher_periodo_mensal_atual(driver, selectors["periodo"])
-    ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atributos"])
-    ui_actions.detectar_e_aguardar_valor_em_elemento(driver, selectors["download"]["status"], "EXPORTADO")
-    ui_actions.detectar_e_clicar_elemento(driver, selectors["download"]["download"])
-    if date_utils.get_day() == 1:
-        envio_mensal_passado(service, folder_id, tipo)
-    else:
-        envio_mensal_atual(service, folder_id, tipo)
+    try:
+        ui_actions.carregar_url(driver, url)
+        ui_actions.detectar_e_clicar_n_elementos(driver, selectors["busca"])
+        if date_utils.get_day() == 1:
+            ui_actions.preencher_periodo_mensal_passado(driver, selectors["periodo"])
+        else:
+            ui_actions.preencher_periodo_mensal_atual(driver, selectors["periodo"])
+        ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atributos"])
+        ui_actions.detectar_e_aguardar_valor_em_elemento(driver, selectors["download"]["status"], "EXPORTADO")
+        ui_actions.detectar_e_clicar_elemento(driver, selectors["download"]["download"])
+        if date_utils.get_day() == 1:
+            envio_mensal_passado(service, folder_id, tipo)
+        else:
+            envio_mensal_atual(service, folder_id, tipo)
+    except Exception as e:
+        print(f"Erro ao coletar {tipo}: {e}\n")
 
 
 def coleta_conjuntura(service, driver, selectors, url, folder_id, tipo):
-    ui_actions.carregar_url(driver, url)
-    ui_actions.detectar_e_clicar_elemento(driver, selectors["busca"])
-    if date_utils.get_day() == 1:
-        ui_actions.preencher_periodo_mensal_passado(driver, selectors["periodo"])
-    else:
-        ui_actions.preencher_periodo_mensal_atual(driver, selectors["periodo"])
-    ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atributos"])
-    if date_utils.get_day() == 1:
-        envio_mensal_passado(service, folder_id, tipo)
-    else:
-        envio_mensal_atual(service, folder_id, tipo)
+    try:
+        ui_actions.carregar_url(driver, url)
+        ui_actions.detectar_e_clicar_elemento(driver, selectors["busca"])
+        if date_utils.get_day() == 1:
+            ui_actions.preencher_periodo_mensal_passado(driver, selectors["periodo"])
+        else:
+            ui_actions.preencher_periodo_mensal_atual(driver, selectors["periodo"])
+        ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atributos"])
+        if date_utils.get_day() == 1:
+            envio_mensal_passado(service, folder_id, tipo)
+        else:
+            envio_mensal_atual(service, folder_id, tipo)
+    except Exception as e:
+        print(f"Erro ao coletar {tipo}: {e}\n")
+
 
 def envio_mensal_passado(service, folder_id, tipo):
     caminho_arquivo = file_handler.wait_download(tipo)

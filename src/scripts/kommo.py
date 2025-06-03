@@ -9,12 +9,14 @@ def login_kommo(driver, login_url, home_url, selectors, values):
 
 
 def coleta_geral(service, driver, atributos, folder_id, tipo):
-    ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
-    caminho_arquivo = file_handler.wait_download(tipo)
-    caminho_arquivo = file_handler.rename_file(caminho_arquivo, tipo)
-    google_drive.upload_report(service, caminho_arquivo, folder_id)
-    file_handler.remove_file(caminho_arquivo)
-
+    try:
+        ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
+        caminho_arquivo = file_handler.wait_download(tipo)
+        caminho_arquivo = file_handler.rename_file(caminho_arquivo, tipo)
+        google_drive.upload_report(service, caminho_arquivo, folder_id)
+        file_handler.remove_file(caminho_arquivo)
+    except Exception as e:
+        print(f"Erro ao coletar {tipo}: {e}\n")
 
 def coleta_kommo(service, driver, selectors, configs):
     dia, dia_semana, hora = scheduler.get_datas()

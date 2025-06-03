@@ -60,7 +60,6 @@ def wait_download(tipo, extensoes=(".xlsx", ".xls"), timeout=90, recente_em_segu
             time.sleep(1)
 
     except Exception as e:
-        print(f"Erro ao baixar o relatório {tipo.capitalize()}: {e}")
         raise
 
 

@@ -1,7 +1,7 @@
 from src.common import date_utils
 
-testando = False
-# testando = True
+# testando = False
+testando = True
 
 
 def get_datas():
@@ -47,8 +47,7 @@ def verificacao_data_veniti(dia, dia_semana, hora):
 
 
 def agendamento_coleta_atendimentos(dia, dia_semana, hora):
-    if (True):
-    # if (testando):
+    if (testando):
         return True
     
     # hora 0
@@ -77,8 +76,7 @@ def verificacao_data_pabxvip(dia, dia_semana, hora):
 
 
 def agendamento_coleta_tw(dia, dia_semana, hora):
-    if (True):
-    # if (testando):
+    if (testando):
         return True
 
     # hora 0

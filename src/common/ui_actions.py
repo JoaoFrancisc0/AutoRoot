@@ -54,12 +54,12 @@ def detectar_e_preencher_campo_data(driver, selectors, data):
     elemento = detectar_elemento(driver, by, value)
     iso_date = date_utils.get_iso_date(data)
     tipo_data = elemento.get_attribute("type")
-    try:
+    if tipo_data == "date":
         driver.execute_script(
             "arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('change'));",
             elemento, iso_date
             )
-    except Exception:
+    elif tipo_data == "text":
         driver.execute_script(
             "arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('change'));",
             elemento, data
@@ -90,7 +90,7 @@ def detectar_elemento(driver, by, value, timeout=10):
         elemento = WebDriverWait(driver, timeout).until(EC.presence_of_element_located((by, value)))
         return elemento
     except Exception:
-        print(f"Error detecting element")
+        print(f"Error detecting element: {value}")
 
 
 def detectar_e_preencher_elemento(driver, selector, valor_preenchimento):
