@@ -1,8 +1,7 @@
 from src.common import date_utils
 
-# testando = False
-testando = True
-
+testando = False
+# testando = True
 
 def get_datas():
     dia = date_utils.get_day()
@@ -57,7 +56,7 @@ def agendamento_coleta_atendimentos(dia, dia_semana, hora):
 
 
 def agendamento_coleta_conjuntura(dia, dia_semana, hora):
-    if (True):
+    if (testando):
         return True
     
     # hora 0
@@ -246,10 +245,7 @@ def agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora):
     if (testando):
         return True
     
-    # Manutenção
-    if (True):
-        return False
-    
+
     # Dia 10 se for dia de semana ou segunda se for dia 11 ou 12, ou sexta, às 9h
     if (((dia == 10 and dia_semana not in ["sábado", "domingo"]) or (dia_semana == "segunda" and (dia == "11" or dia == "12")) or (dia_semana == "sexta-feira")) and hora == 9):
         return True
@@ -257,6 +253,11 @@ def agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora):
 
 
 def agendamento_contrato(dia, dia_semana, hora):
+    # Manutenção
+    if (True):
+        return False
+    
+    
     if (testando):
         return True
     

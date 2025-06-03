@@ -1,6 +1,5 @@
 from src.common import locale, datetime, timedelta, unidecode, calendar
 
-
 # Seta o local para português do Brasil
 def set_locale():
     try:

@@ -1,6 +1,5 @@
 from src.common import sys, os, json, TwoCaptcha, pyotp, Path, time
 
-
 def obter_resources_dir():
     if getattr(sys, 'frozen', False):
         path = Path(sys._MEIPASS) / 'resources' / '2Captcha.json'

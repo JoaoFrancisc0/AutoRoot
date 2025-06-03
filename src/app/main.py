@@ -1,7 +1,6 @@
 from src.common import driver_manager, config_loader, google_drive
 from src.scripts import alfacb, sga, veniti, ileva, pabxvip, kommo
 
-
 def carregar_configuracoes(base_dir):
     return {
         "alfacb_configs": config_loader.load_json("alfacb", base_dir, 'configs'),

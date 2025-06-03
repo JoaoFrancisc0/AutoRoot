@@ -1,6 +1,5 @@
 from src.common import os, pd, time, date_utils
 
-
 def get_download_folder():
     """Retorna o caminho da pasta de downloads do usuário."""
     return os.path.join(os.path.expanduser("~"), "Downloads")

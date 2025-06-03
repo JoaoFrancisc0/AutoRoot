@@ -1,6 +1,5 @@
 from src.common import json
 
-
 # Carrega .json
 def load_json(name, BASE_DIR, json_subdir):
     path = BASE_DIR / 'resources' / json_subdir / f"{name}.json"

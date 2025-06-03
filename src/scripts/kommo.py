@@ -1,7 +1,6 @@
 from src.common import ui_actions, file_handler, google_drive
 from src.app import scheduler
 
-
 def login_kommo(driver, login_url, home_url, selectors, values):
     ui_actions.carregar_url(driver, login_url)
     ui_actions.processo_de_login(driver, selectors["login"], values)

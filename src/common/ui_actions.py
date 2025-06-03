@@ -1,6 +1,4 @@
-from src.common import auth_challenge_solver
-from src.common import WebDriverWait, EC, time, date_utils
-import datetime
+from src.common import auth_challenge_solver, WebDriverWait, EC, time, date_utils
 
 def carregar_url(driver, url, timeout=10):
     driver.get(url)
@@ -112,7 +110,7 @@ def detectar_e_clicar_elemento(driver, *args):
         elemento = detectar_elemento(driver, by, value)
         clicar_elemento(elemento)
     except Exception as e:
-        raise Exception(f"Error clicking element: {value}\n")
+        raise Exception(f"Error clicking element: {value}")
 
 
 def detectar_e_clicar_n_elementos(driver, selectors):
@@ -121,6 +119,18 @@ def detectar_e_clicar_n_elementos(driver, selectors):
         by = info['by']
         value = info['value']
         detectar_e_clicar_elemento(driver, by, value)
+
+
+def on_click_event(driver, selector):
+    try:
+        selector = selector["abrir_filtro_por_produtos_do_veiculo"]
+        by = selector['by']
+        value = selector['value']
+        elemento = detectar_elemento(driver, by, value)
+        driver.execute_script("arguments[0].click();", elemento)
+        time.sleep(1)  # Aguarda o clique ser processado
+    except Exception as e:
+        raise Exception(f"Error on clicking element event: {value}")
 
 
 def processo_de_login(driver, selectors, valuesLogin):
@@ -147,6 +157,7 @@ def processo_de_login_com_reCAPTCHA(driver, selectors, valuesLogin, login_url, s
             preencher_elemento(elemento, valuesLogin[campo])
         else:
             resolver_captcha(driver, login_url, site_name)
+            # time.sleep(30)
 
 
 def confirmar_login(driver, selectors):

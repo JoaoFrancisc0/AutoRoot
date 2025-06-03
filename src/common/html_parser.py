@@ -1,6 +1,5 @@
 from src.common import BeautifulSoup
 
-
 def add_quotes_to_columns(file_path, column_indices):
     try:
         # Try opening the file with UTF-8, fall back to UTF-16 if it fails
