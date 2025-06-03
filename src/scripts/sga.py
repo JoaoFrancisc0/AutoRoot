@@ -30,20 +30,6 @@ def coleta_mensal(service, driver, atributos, periodo, url, folder_id, tipo, fec
         print(f"Erro ao coletar {tipo}: {e}")
 
 
-def coleta_semanal(service, driver, atributos, periodo, url, folder_id, tipo):
-    try:
-        ui_actions.carregar_url(driver, url)
-        ui_actions.preencher_periodo_semanal(driver, periodo)
-        ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
-        caminho_arquivo = file_handler.wait_download(tipo)
-        caminho_arquivo = file_handler.convert_file_html(caminho_arquivo)
-        caminho_arquivo = file_handler.rename_file(caminho_arquivo, tipo)
-        google_drive.upload_report(service, caminho_arquivo, folder_id)
-        file_handler.remove_file(caminho_arquivo)
-    except Exception as e:
-        print(f"Erro ao coletar {tipo}: {e}\n")
-
-
 def coleta_geral(service, driver, atributos, url, folder_id, tipo):
     try:
         ui_actions.carregar_url(driver, url)
@@ -75,16 +61,19 @@ def coleta_sga(service, driver, selectors, configs):
             coleta_mensal(service, driver, supervisao["atributos_boleto_fechamento"], supervisao["periodo_boleto_fechamento"], url["boleto_url"], folder_id["boleto_fechamento_folder_id"], tipo="boleto_fechamento", fechamento=True)
         
         if (scheduler.agendamento_boleto_fechamento_semanal(dia, dia_semana, hora)):
-            coleta_semanal(service, driver, supervisao["atributos_boleto_fechamento"], supervisao["periodo_boleto_fechamento"], url["boleto_url"], folder_id["root_folder_id"], tipo="boleto_fechamento_semanal")
-        
+            coleta_mensal(service, driver, supervisao["atributos_boleto_fechamento"], supervisao["periodo_boleto_fechamento"], url["boleto_url"], folder_id["boleto_fechamento_folder_id"], tipo="boleto_fechamento", fechamento=False)
+
         if (scheduler.agendamento_veiculo_evasao_mensal(dia, dia_semana, hora)):
             coleta_mensal(service, driver, supervisao["atributos_veiculo_evasao"], supervisao["periodo_veiculo_evasao"], url["veiculo_url"], folder_id["veiculo_evasao_folder_id"], tipo="veiculo_evasao", fechamento=True)
+
+        if (scheduler.agendamento_veiculo_evasao_semanal(dia, dia_semana, hora)):
+            coleta_mensal(service, driver, supervisao["atributos_veiculo_evasao"], supervisao["periodo_veiculo_evasao"], url["veiculo_url"], folder_id["veiculo_evasao_folder_id"], tipo="veiculo_evasao", fechamento=False)
 
         if (scheduler.agendamento_veiculo_ativo_mensal(dia, dia_semana, hora)):
             coleta_mensal(service, driver, supervisao["atributos_veiculo_ativo"], supervisao["periodo_veiculo_ativo"], url["veiculo_url"], folder_id["veiculo_ativo_folder_id"], tipo="veiculo_ativo", fechamento=True)
         
         if (scheduler.agendamento_veiculo_ativo_semanal(dia, dia_semana, hora)):
-            coleta_semanal(service, driver, supervisao["atributos_veiculo_ativo"], supervisao["periodo_veiculo_ativo"], url["veiculo_url"], folder_id["root_folder_id"], tipo="veiculo_ativo_semanal")
+            coleta_mensal(service, driver, supervisao["atributos_veiculo_ativo"], supervisao["periodo_veiculo_ativo"], url["veiculo_url"], folder_id["veiculo_ativo_folder_id"], tipo="veiculo_ativo", fechamento=False)
 
         if (scheduler.agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora)):
             coleta_mensal(service, driver, rastreamento["atributos_veiculos_cancelamentos_com_rastreador"], rastreamento["periodo_veiculos_cancelamentos_com_rastreador"], url["veiculo_url"], folder_id["veiculo_cancelamento_com_rastreador_folder_id"], tipo="veiculo_cancelamento_com_rastreador", fechamento=False)

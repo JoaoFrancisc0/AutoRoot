@@ -162,8 +162,9 @@ def agendamento_coleta_kommo(dia, dia_semana, hora):
 
 def verificacao_data_sga(dia, dia_semana, hora):
     if (agendamento_boleto_fechamento_mensal(dia, dia_semana, hora) or
-        agendamento_veiculo_evasao_mensal(dia, dia_semana, hora) or
         agendamento_boleto_fechamento_semanal(dia, dia_semana, hora) or 
+        agendamento_veiculo_evasao_mensal(dia, dia_semana, hora) or
+        agendamento_veiculo_evasao_semanal(dia, dia_semana, hora) or
         agendamento_veiculo_ativo_mensal(dia, dia_semana, hora) or
         agendamento_veiculo_ativo_semanal(dia, dia_semana, hora) or
         agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora) or 
@@ -185,6 +186,16 @@ def agendamento_boleto_fechamento_mensal(dia, dia_semana, hora):
     return False
 
 
+def agendamento_boleto_fechamento_semanal(dia, dia_semana, hora):
+    if (testando):
+        return True
+
+    # Sexta-feira e hora 0
+    if (dia_semana == "sexta-feira" and hora == 0):
+        return True
+    return False
+
+
 def agendamento_veiculo_evasao_mensal(dia, dia_semana, hora):
     if (testando):
         return True
@@ -198,12 +209,12 @@ def agendamento_veiculo_evasao_mensal(dia, dia_semana, hora):
     return False
 
 
-def agendamento_boleto_fechamento_semanal(dia, dia_semana, hora):
+def agendamento_veiculo_evasao_semanal(dia, dia_semana, hora):
     if (testando):
         return True
 
-    # Sexta-feira e hora 9
-    if (dia_semana == "sexta-feira" and hora == 9):
+    # Sexta-feira e hora 0
+    if (dia_semana == "sexta-feira" and hora == 0):
         return True
     return False
 
@@ -225,19 +236,19 @@ def agendamento_veiculo_ativo_semanal(dia, dia_semana, hora):
     if (testando):
         return True
     
-    # Sexta-feira e hora 9
-    if (dia_semana == "sexta-feira" and hora == 9):
+    # Sexta-feira e hora 0
+    if (dia_semana == "sexta-feira" and hora == 0):
         return True
     return False
 
 
 def agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora):
+    if (testando):
+        return True
+    
     # Manutenção
     if (True):
         return False
-    
-    if (testando):
-        return True
     
     # Dia 10 se for dia de semana ou segunda se for dia 11 ou 12, ou sexta, às 9h
     if (((dia == 10 and dia_semana not in ["sábado", "domingo"]) or (dia_semana == "segunda" and (dia == "11" or dia == "12")) or (dia_semana == "sexta-feira")) and hora == 9):

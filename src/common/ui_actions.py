@@ -82,7 +82,7 @@ def clicar_elemento(elemento):
         elemento.click()
         time.sleep(1)
     except Exception:
-        print(f"Error clicking element")
+        raise
 
 
 def detectar_elemento(driver, by, value, timeout=10):
@@ -90,7 +90,7 @@ def detectar_elemento(driver, by, value, timeout=10):
         elemento = WebDriverWait(driver, timeout).until(EC.presence_of_element_located((by, value)))
         return elemento
     except Exception:
-        print(f"Error detecting element: {value}")
+        raise
 
 
 def detectar_e_preencher_elemento(driver, selector, valor_preenchimento):
@@ -101,16 +101,18 @@ def detectar_e_preencher_elemento(driver, selector, valor_preenchimento):
 
 
 def detectar_e_clicar_elemento(driver, *args):
-    if len(args) == 1:
-        selector = args[0]
-        by = selector["by"]
-        value = selector["value"]
-    if len(args) == 2:
-        by = args[0]
-        value = args[1]
-    # print(by, value)
-    elemento = detectar_elemento(driver, by, value)
-    clicar_elemento(elemento)
+    try:
+        if len(args) == 1:
+            selector = args[0]
+            by = selector["by"]
+            value = selector["value"]
+        if len(args) == 2:
+            by = args[0]
+            value = args[1]
+        elemento = detectar_elemento(driver, by, value)
+        clicar_elemento(elemento)
+    except Exception as e:
+        raise Exception(f"Error clicking element: {value}\n")
 
 
 def detectar_e_clicar_n_elementos(driver, selectors):
@@ -148,15 +150,18 @@ def processo_de_login_com_reCAPTCHA(driver, selectors, valuesLogin, login_url, s
 
 
 def confirmar_login(driver, selectors):
-    by = selectors['by']
-    value = selectors['value']
-    detectar_e_clicar_elemento(driver, by, value)
+    try:
+        by = selectors['by']
+        value = selectors['value']
+        detectar_e_clicar_elemento(driver, by, value)
+    except Exception:
+        pass
 
 
 def resolver_captcha(driver, login_url, site_name):
     token = auth_challenge_solver.reCAPTCHA(login_url, site_name)
     driver.execute_script(f'document.getElementById("g-recaptcha-response").innerHTML = "{token}";')
-    print("Captcha resolvido com sucesso!")
+    print("Captcha resolvido com sucesso!\n")
 
 
 def resolver_2FA(driver, selector_botao, selecotr_2FA, site_name):
