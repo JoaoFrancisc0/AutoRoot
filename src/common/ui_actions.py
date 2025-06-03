@@ -18,9 +18,10 @@ def preencher_elemento(elemento, value):
 def preencher_periodo_mensal_atual(driver, selectors):
     numMes = date_utils.get_month_number()
     numAno = date_utils.get_year()
+    numUltimoDia = date_utils.get_last_day_of_the_month(int(numAno), int(numMes))
         
     dataInicio = f"01/{numMes}/{numAno}"
-    dataFinal = f"31/{numMes}/{numAno}"
+    dataFinal = f"{numUltimoDia}/{numMes}/{numAno}"
     detectar_e_preencher_campo_data(driver, selectors["inicio"], dataInicio)
     detectar_e_preencher_campo_data(driver, selectors["final"], dataFinal)
 
@@ -28,9 +29,10 @@ def preencher_periodo_mensal_atual(driver, selectors):
 def preencher_periodo_mensal_passado(driver, selectors):
     numMes = date_utils.get_previous_month_number()
     numAno = date_utils.get_previous_year()
+    numUltimoDia = date_utils.get_last_day_of_the_month(int(numAno), int(numMes))
         
     dataInicio = f"01/{numMes}/{numAno}"
-    dataFinal = f"31/{numMes}/{numAno}"
+    dataFinal = f"{numUltimoDia}/{numMes}/{numAno}"
     detectar_e_preencher_campo_data(driver, selectors["inicio"], dataInicio)
     detectar_e_preencher_campo_data(driver, selectors["final"], dataFinal)    
 
@@ -52,12 +54,12 @@ def detectar_e_preencher_campo_data(driver, selectors, data):
     elemento = detectar_elemento(driver, by, value)
     iso_date = date_utils.get_iso_date(data)
     tipo_data = elemento.get_attribute("type")
-    if (tipo_data == "date"):
+    try:
         driver.execute_script(
             "arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('change'));",
             elemento, iso_date
             )
-    elif (tipo_data == "text"):
+    except Exception:
         driver.execute_script(
             "arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('change'));",
             elemento, data

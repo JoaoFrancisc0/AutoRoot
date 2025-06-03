@@ -47,7 +47,8 @@ def verificacao_data_veniti(dia, dia_semana, hora):
 
 
 def agendamento_coleta_atendimentos(dia, dia_semana, hora):
-    if (testando):
+    if (True):
+    # if (testando):
         return True
     
     # hora 0
@@ -76,7 +77,8 @@ def verificacao_data_pabxvip(dia, dia_semana, hora):
 
 
 def agendamento_coleta_tw(dia, dia_semana, hora):
-    if (testando):
+    if (True):
+    # if (testando):
         return True
 
     # hora 0
