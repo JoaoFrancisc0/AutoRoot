@@ -49,8 +49,8 @@ def agendamento_coleta_atendimentos(dia, dia_semana, hora):
     if (testando):
         return True
     
-    # hora 0
-    if (hora == 0):
+    # hora 1
+    if (hora == 1):
         return True
     return False
 
@@ -59,8 +59,8 @@ def agendamento_coleta_conjuntura(dia, dia_semana, hora):
     if (testando):
         return True
     
-    # hora 0
-    if (hora == 0):
+    # hora 1
+    if (hora == 1):
         return True
     return False
 
@@ -78,8 +78,8 @@ def agendamento_coleta_tw(dia, dia_semana, hora):
     if (testando):
         return True
 
-    # hora 0
-    if (hora == 0):
+    # hora 1
+    if (hora == 1):
         return True
     return False
 
@@ -245,22 +245,16 @@ def agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora):
     if (testando):
         return True
     
-
     # Dia 10 se for dia de semana ou segunda se for dia 11 ou 12, ou sexta, às 9h
     if (((dia == 10 and dia_semana not in ["sábado", "domingo"]) or (dia_semana == "segunda" and (dia == "11" or dia == "12")) or (dia_semana == "sexta-feira")) and hora == 9):
         return True
     return False
 
 
-def agendamento_contrato(dia, dia_semana, hora):
-    # Manutenção
-    if (True):
-        return False
-    
-    
+def agendamento_contrato(dia, dia_semana, hora):    
     if (testando):
         return True
-    
+
     # Dia de semana e hora 7 ou 13
     if (dia_semana not in ["sábado", "domingo"] and hora in [7, 13]):
         return True
