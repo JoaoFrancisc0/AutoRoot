@@ -64,7 +64,7 @@ def detectar_e_preencher_campo_data(driver, selectors, data):
             )
     
 
-def detectar_e_aguardar_valor_em_elemento(driver, selectors, valorEsperado, timeout=60):
+def detectar_e_aguardar_valor_em_elemento(driver, selectors, valorEsperado, timeout=120):
     inicio = time.time()
     by = selectors['by']
     value = selectors['value']
@@ -73,6 +73,7 @@ def detectar_e_aguardar_valor_em_elemento(driver, selectors, valorEsperado, time
         if elemento.text.strip() == valorEsperado:
             return
         time.sleep(5)
+    raise TimeoutError(f"Erro timeout ao aguardar {valorEsperado}.")
 
 
 def clicar_elemento(elemento):
