@@ -33,7 +33,7 @@ def find_new_file(arquivos_antes, extensoes=(".xlsx", ".xls")):
     return None
 
 
-def wait_download(tipo, extensoes=(".xlsx", ".xls"), timeout=90, recente_em_segundos=10):
+def wait_download(tipo, extensoes=(".xlsx", ".xls"), timeout=120, recente_em_segundos=10):
     """Aguarda o download de um novo arquivo .xlsx ou .xls, priorizando arquivos recentes."""
     try:
         caminho_download = get_download_folder()
