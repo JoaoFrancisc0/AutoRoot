@@ -167,6 +167,7 @@ def verificacao_data_sga(dia, dia_semana, hora):
         agendamento_veiculo_ativo_mensal(dia, dia_semana, hora) or
         agendamento_veiculo_ativo_semanal(dia, dia_semana, hora) or
         agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora) or 
+        agendamento_veiculo_suporte_veniti(dia, dia_semana, hora) or
         agendamento_contrato(dia, dia_semana, hora)):
         return True
     return False
@@ -246,6 +247,16 @@ def agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora):
     
     # Dia 10 se for dia de semana ou segunda se for dia 11 ou 12, ou sexta, às 9h
     if (((dia == "10" and dia_semana not in ["sábado", "domingo"]) or (dia_semana == "segunda" and (dia == "11" or dia == "12")) or (dia_semana == "sexta-feira")) and hora == 9):
+        return True
+    return False
+
+
+def agendamento_veiculo_suporte_veniti(dia, dia_semana, hora):
+    if (testando):
+        return True
+
+    # Sexta-feira e hora 7
+    if (dia_semana == "sexta-feira" and hora == 7):
         return True
     return False
 

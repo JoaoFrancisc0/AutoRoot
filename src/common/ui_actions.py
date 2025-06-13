@@ -62,6 +62,7 @@ def detectar_e_preencher_campo_data(driver, selectors, data):
             "arguments[0].value = arguments[1]; arguments[0].dispatchEvent(new Event('change'));",
             elemento, data
             )
+    time.sleep(1)
     
 
 def detectar_e_aguardar_valor_em_elemento(driver, selectors, valorEsperado, timeout=120):

@@ -58,6 +58,7 @@ def coleta_sga(service, driver, selectors, configs):
         supervisao = selectors["supervisao"]
         rastreamento = selectors["rastreamento"]
         evento = selectors["evento"]
+        assistencia = selectors["assistencia"]
 
         if (scheduler.agendamento_boleto_fechamento_mensal(dia, dia_semana, hora)):
             coleta_mensal(service, driver, supervisao["boleto_fechamento"], url["boleto_url"], folder_id["boleto_fechamento_folder_id"], tipo="boleto_fechamento", fechamento=True)
@@ -80,5 +81,8 @@ def coleta_sga(service, driver, selectors, configs):
         if (scheduler.agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora)):
             coleta_mensal(service, driver, rastreamento["veiculos_cancelamentos_com_rastreador"], url["veiculo_url"], folder_id["veiculo_cancelamento_com_rastreador_folder_id"], tipo="veiculo_cancelamento_com_rastreador", fechamento=False)
         
+        if (scheduler.agendamento_veiculo_suporte_veniti(dia, dia_semana, hora)):
+            coleta_geral(service, driver, assistencia["suporte_veniti"], url["veiculo_url"], folder_id["root_folder_id"], tipo="suporte_veniti")
+
         if (scheduler.agendamento_contrato(dia, dia_semana, hora)):
             coleta_geral(service, driver, evento["contrato"], url["veiculo_url"], folder_id["root_folder_id"], tipo="contrato")
