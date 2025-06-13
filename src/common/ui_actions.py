@@ -24,6 +24,17 @@ def preencher_periodo_mensal_atual(driver, selectors):
     detectar_e_preencher_campo_data(driver, selectors["final"], dataFinal)
 
 
+def preencher_periodo_mensal_parcial(driver, selectors):
+    numMes = date_utils.get_month_number()
+    numAno = date_utils.get_year()
+    numHojeDia = date_utils.get_day()
+        
+    dataInicio = f"01/{numMes}/{numAno}"
+    dataFinal = f"{numHojeDia}/{numMes}/{numAno}"
+    detectar_e_preencher_campo_data(driver, selectors["inicio"], dataInicio)
+    detectar_e_preencher_campo_data(driver, selectors["final"], dataFinal)
+
+
 def preencher_periodo_mensal_passado(driver, selectors):
     numMes = date_utils.get_previous_month_number()
     numAno = date_utils.get_previous_year()

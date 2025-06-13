@@ -15,7 +15,7 @@ def coleta_mensal(service, driver, selectors, url, folder_id, tipo, fechamento):
         if (fechamento):
             ui_actions.preencher_periodo_mensal_passado(driver, selectors["periodo"])
         else:
-            ui_actions.preencher_periodo_mensal_atual(driver, selectors["periodo"])
+            ui_actions.preencher_periodo_mensal_parcial(driver, selectors["periodo"])
         ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atributos"])
         if selectors.get("on_click_event") is not None:
             ui_actions.on_click_event(driver, selectors["on_click_event"])
