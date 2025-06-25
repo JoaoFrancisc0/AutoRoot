@@ -17,7 +17,7 @@ def coleta_atendimentos(service, driver, selectors, url, folder_id, tipo):
         else:
             ui_actions.preencher_periodo_mensal_atual(driver, selectors["periodo"])
         ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atributos"])
-        ui_actions.detectar_e_aguardar_valor_em_elemento(driver, selectors["download"]["status"], "EXPORTADO")
+        ui_actions.detectar_e_aguardar_valor_em_elemento(driver, selectors["download"]["status"], "EXPORTADO E BAIXADO")
         ui_actions.detectar_e_clicar_elemento(driver, selectors["download"]["download"])
         if date_utils.get_day() == 1:
             envio_mensal_passado(service, folder_id, tipo)
