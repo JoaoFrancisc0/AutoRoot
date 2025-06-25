@@ -105,8 +105,15 @@ def rename_file(file_path, file_type):
         directory = os.path.dirname(file_path)
         new_name = f"{file_type}.xlsx"
         new_path = os.path.join(directory, new_name)
+
+        # Verifica se o arquivo com o novo nome já existe
+        if os.path.exists(new_path):
+            os.remove(new_path)
+            print(f"Arquivo existente '{new_name}' foi removido.")
+
         os.rename(file_path, new_path)
         return new_path
+
     except Exception as e:
         print(f"Error renaming file: {e}")
         raise
