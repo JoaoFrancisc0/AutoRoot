@@ -86,3 +86,6 @@ def coleta_sga(service, driver, selectors, configs):
 
         if (scheduler.agendamento_contrato(dia, dia_semana, hora)):
             coleta_geral(service, driver, evento["contrato"], url["veiculo_url"], folder_id["root_folder_id"], tipo="contrato")
+
+        if(scheduler.agendamento_boleto_aberto(dia, dia_semana, hora)):
+            coleta_geral(service, driver, rastreamento["boleto_aberto"], url["boleto_url"], folder_id["root_folder_id"], tipo="boleto_aberto")

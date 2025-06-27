@@ -46,7 +46,7 @@ def verificacao_data_veniti(dia, dia_semana, hora):
 
 
 def agendamento_coleta_atendimentos(dia, dia_semana, hora):
-    if (True):
+    if (testando):
         return True
     
     # hora 7
@@ -56,7 +56,7 @@ def agendamento_coleta_atendimentos(dia, dia_semana, hora):
 
 
 def agendamento_coleta_conjuntura(dia, dia_semana, hora):
-    if (True):
+    if (testando):
         return True
     
     # hora 7
@@ -75,7 +75,7 @@ def verificacao_data_pabxvip(dia, dia_semana, hora):
 
 
 def agendamento_coleta_tw(dia, dia_semana, hora):
-    if (True):
+    if (testando):
         return True
 
     # hora 7
@@ -168,7 +168,8 @@ def verificacao_data_sga(dia, dia_semana, hora):
         agendamento_veiculo_ativo_semanal(dia, dia_semana, hora) or
         agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora) or 
         agendamento_veiculo_suporte_veniti(dia, dia_semana, hora) or
-        agendamento_contrato(dia, dia_semana, hora)):
+        agendamento_contrato(dia, dia_semana, hora) or
+        agendamento_boleto_aberto(dia, dia_semana, hora)):
         return True
     return False
 
@@ -267,5 +268,15 @@ def agendamento_contrato(dia, dia_semana, hora):
 
     # Dia de semana e hora 7 ou 13
     if (dia_semana not in ["sábado", "domingo"] and hora in [7, 13]):
+        return True
+    return False
+
+
+def agendamento_boleto_aberto(dia, dia_semana, hora):
+    if (testando):
+        return True
+
+    # Dia de semana e hora 9, 10, 11, 14, 15, 16
+    if (dia_semana not in ["sábado", "domingo"] and hora in [9, 10, 11, 14, 15, 16]):
         return True
     return False
