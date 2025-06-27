@@ -1,4 +1,5 @@
-from src.common import ui_actions, file_handler, google_drive, html_parser
+from common import table_handler
+from src.common import ui_actions, file_handler, google_drive
 from src.app import scheduler
 
 def login_ileva(driver, login_url, home_url, selectors, values):
@@ -14,7 +15,7 @@ def coleta(service, driver, atributos, url, folder_id, tipo, colunas_sensiveis):
         ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
         caminho_arquivo = file_handler.wait_download(tipo)
         caminho_arquivo_antigo = caminho_arquivo
-        caminho_arquivo = html_parser.add_quotes_to_columns(caminho_arquivo, colunas_sensiveis)
+        caminho_arquivo = table_handler.add_quotes_to_columns(caminho_arquivo, colunas_sensiveis)
         file_handler.remove_file(caminho_arquivo_antigo)
         caminho_arquivo = file_handler.convert_file_html(caminho_arquivo)
         caminho_arquivo = file_handler.rename_file(caminho_arquivo, tipo)
