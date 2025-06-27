@@ -1,4 +1,4 @@
-from src.common import ui_actions, file_handler, google_drive, date_utils
+from src.common import ui_actions, file_handler, google_drive, date_utils, table_handler
 from src.app import scheduler
 
 def login_veniti(driver, login_url, home_url, selectors, values):
@@ -47,6 +47,8 @@ def coleta_conjuntura(service, driver, selectors, url, folder_id, tipo):
 def envio_mensal_passado(service, folder_id, tipo):
     caminho_arquivo = file_handler.wait_download(tipo)
     caminho_arquivo = file_handler.rename_file_previous_month(caminho_arquivo, tipo)
+    month_filter = f"/{date_utils.get_two_months_ago_month_number()}/"
+    table_handler.remove_lines_outside_month_filter(caminho_arquivo, 3, month_filter)
     google_drive.upload_report(service, caminho_arquivo, folder_id)
     file_handler.remove_file(caminho_arquivo)
 
@@ -54,6 +56,8 @@ def envio_mensal_passado(service, folder_id, tipo):
 def envio_mensal_atual(service, folder_id, tipo):
     caminho_arquivo = file_handler.wait_download(tipo)
     caminho_arquivo = file_handler.rename_file_atual_month(caminho_arquivo, tipo)
+    month_filter = f"/{date_utils.get_previous_month_number()}/"
+    table_handler.remove_lines_outside_month_filter(caminho_arquivo, 3, month_filter)
     google_drive.upload_report(service, caminho_arquivo, folder_id)
     file_handler.remove_file(caminho_arquivo)
 

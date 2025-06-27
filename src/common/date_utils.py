@@ -46,6 +46,12 @@ def get_previous_month_number():
     return get_formatted_previous_date("%m")
 
 
+def get_two_months_ago_month_number():
+    pre_month = int(get_previous_month_number())
+    two_months_ago = pre_month - 1 if pre_month > 1 else 12
+    return str(two_months_ago).zfill(2)
+
+
 # Retorna o ano atual como uma string
 def get_year():
     return get_formatted_date("%Y")
