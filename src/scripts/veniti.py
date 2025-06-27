@@ -19,10 +19,14 @@ def coleta_atendimentos(service, driver, selectors, url, folder_id, tipo):
         ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atributos"])
         ui_actions.detectar_e_aguardar_valor_em_elemento(driver, selectors["download"]["status"], "EXPORTADO E BAIXADO")
         ui_actions.detectar_e_clicar_elemento(driver, selectors["download"]["download"])
+        caminho_arquivo = file_handler.wait_download(tipo)
         if date_utils.get_day() == 1:
-            envio_mensal_passado(service, folder_id, tipo)
+            caminho_arquivo = file_handler.rename_file_previous_month(caminho_arquivo, tipo)
         else:
-            envio_mensal_atual(service, folder_id, tipo)
+            caminho_arquivo = file_handler.rename_file_atual_month(caminho_arquivo, tipo)
+        google_drive.upload_report(service, caminho_arquivo, folder_id)
+        file_handler.remove_file(caminho_arquivo)
+
     except Exception as e:
         print(f"Erro ao coletar {tipo}: {e}\n")
 
@@ -36,10 +40,17 @@ def coleta_conjuntura(service, driver, selectors, url, folder_id, tipo):
         else:
             ui_actions.preencher_periodo_mensal_atual(driver, selectors["periodo"])
         ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atributos"])
+        caminho_arquivo = file_handler.wait_download(tipo)
         if date_utils.get_day() == 1:
-            envio_mensal_passado(service, folder_id, tipo)
+            caminho_arquivo = file_handler.rename_file_previous_month(caminho_arquivo, tipo)
+            month_filter = f"/{date_utils.get_two_months_ago_month_number()}/"
+            table_handler.remove_lines_outside_month_filter(caminho_arquivo, 3, month_filter)
         else:
-            envio_mensal_atual(service, folder_id, tipo)
+            caminho_arquivo = file_handler.rename_file_atual_month(caminho_arquivo, tipo)
+            month_filter = f"/{date_utils.get_previous_month_number()}/"
+            table_handler.remove_lines_outside_month_filter(caminho_arquivo, 3, month_filter)
+        google_drive.upload_report(service, caminho_arquivo, folder_id)
+        file_handler.remove_file(caminho_arquivo)
     except Exception as e:
         print(f"Erro ao coletar {tipo}: {e}\n")
 
