@@ -8,6 +8,10 @@ resources/configs/*.json
 resources/selectors/*.json
 resources/credenciais.json
 resources/2Captcha.json
+resources/log.json
+
+# logs
+logs
 
 # arquivos genéricos
 *.ini

@@ -1,4 +1,4 @@
-from src.common import auth_challenge_solver, WebDriverWait, EC, time, date_utils
+from src.common import auth_challenge_solver, WebDriverWait, EC, time, date_utils, logging
 
 def carregar_url(driver, url, timeout=10):
     driver.get(url)
@@ -185,7 +185,7 @@ def confirmar_login(driver, selectors):
 def resolver_captcha(driver, login_url, site_name):
     token = auth_challenge_solver.reCAPTCHA(login_url, site_name)
     driver.execute_script(f'document.getElementById("g-recaptcha-response").innerHTML = "{token}";')
-    print("Captcha resolvido com sucesso!\n")
+    logging.info("Captcha resolvido com sucesso!\n")
 
 
 def resolver_2FA(driver, selector_botao, selecotr_2FA, site_name):

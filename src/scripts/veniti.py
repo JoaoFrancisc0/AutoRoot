@@ -1,5 +1,6 @@
 from src.common import ui_actions, file_handler, google_drive, date_utils, table_handler
 from src.app import scheduler
+import logging
 
 def login_veniti(driver, login_url, home_url, selectors, values):
     ui_actions.carregar_url(driver, login_url)
@@ -28,7 +29,7 @@ def coleta_atendimentos(service, driver, selectors, url, folder_id, tipo):
         file_handler.remove_file(caminho_arquivo)
 
     except Exception as e:
-        print(f"Erro ao coletar {tipo}: {e}\n")
+        logging.exception(f"Erro ao coletar {tipo}: {e}\n")
 
 
 def coleta_conjuntura(service, driver, selectors, url, folder_id, tipo):
@@ -52,7 +53,7 @@ def coleta_conjuntura(service, driver, selectors, url, folder_id, tipo):
         google_drive.upload_report(service, caminho_arquivo, folder_id)
         file_handler.remove_file(caminho_arquivo)
     except Exception as e:
-        print(f"Erro ao coletar {tipo}: {e}\n")
+        logging.exception(f"Erro ao coletar {tipo}: {e}\n")
 
 
 def coleta_veniti(service, driver, selectors, configs):

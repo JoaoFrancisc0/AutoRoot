@@ -1,5 +1,6 @@
-from src.common import driver_manager, config_loader, google_drive
+from src.common import driver_manager, config_loader, google_drive, logger
 from src.scripts import alfacb, sga, veniti, ileva, pabxvip, kommo
+import logging
 
 def carregar_configuracoes(base_dir):
     return {
@@ -15,7 +16,9 @@ def carregar_configuracoes(base_dir):
         "veniti_selectors": config_loader.load_json("veniti", base_dir, 'selectors'),
         "sga_selectors": config_loader.load_json("sga", base_dir, 'selectors'),
         "ileva_selectors": config_loader.load_json("ileva", base_dir, 'selectors'),
-        "kommo_selectors": config_loader.load_json("kommo", base_dir, 'selectors')
+        "kommo_selectors": config_loader.load_json("kommo", base_dir, 'selectors'),
+
+        "log": config_loader.load_json("log", base_dir, '')
     }
 
 
@@ -53,25 +56,35 @@ def automacao_kommo(service, driver, selectors, configs):
 
 
 def main(base_dir):
-    service = autenticar_google_drive(base_dir)
-    driver = inicializar_driver()
-    
-    configs = carregar_configuracoes(base_dir)
-    
-    automacao_alfacb(service, driver, configs["alfacb_selectors"], configs["alfacb_configs"])
+    try:
+        log_path = logger.log_config(base_dir)
 
-    automacao_veniti(service, driver, configs["veniti_selectors"], configs["veniti_configs"])
+        logging.info("Automação iniciada.")
 
-    automacao_pabxvip(service, driver, configs["pabxvip_selectors"], configs["pabxvip_configs"])
+        service = autenticar_google_drive(base_dir)
+        driver = inicializar_driver()
+        
+        configs = carregar_configuracoes(base_dir)
+        
+        automacao_alfacb(service, driver, configs["alfacb_selectors"], configs["alfacb_configs"])
 
-    automacao_sga(service, driver, configs["sga_selectors"], configs["sga_configs"])
+        automacao_veniti(service, driver, configs["veniti_selectors"], configs["veniti_configs"])
 
-    automacao_ileva(service, driver, configs["ileva_selectors"], configs["ileva_configs"])
+        automacao_pabxvip(service, driver, configs["pabxvip_selectors"], configs["pabxvip_configs"])
 
-    automacao_kommo(service, driver, configs["kommo_selectors"], configs["kommo_configs"])
+        automacao_sga(service, driver, configs["sga_selectors"], configs["sga_configs"])
 
-    print("Automação finalizada.")
+        automacao_ileva(service, driver, configs["ileva_selectors"], configs["ileva_configs"])
 
+        automacao_kommo(service, driver, configs["kommo_selectors"], configs["kommo_configs"])
+
+        logging.info("Automação finalizada.")
+
+    except Exception as e:
+        logging.exception (f"Error in main: {e}")
+
+    finally:
+        google_drive.upload_log(service, log_path, configs["log"]["log_folder_id"])
 
 if __name__ == "__main__":
     import os

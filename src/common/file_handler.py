@@ -1,4 +1,4 @@
-from src.common import os, pd, time, date_utils
+from src.common import os, pd, time, date_utils, logging
 
 def get_download_folder():
     """Retorna o caminho da pasta de downloads do usuário."""
@@ -68,14 +68,13 @@ def remove_file(file_path):
         os.remove(file_path)
         time.sleep(2)
     except FileNotFoundError:
-        print(f"File not found: {file_path}")
-        raise
+        raise Exception (f"File not found: {file_path}")
+    
     except PermissionError:
-        print(f"Permission denied to remove the file: {file_path}")
-        raise
+        raise Exception (f"Permission denied to remove the file: {file_path}")
+
     except Exception as e:
-        print(f"Unexpected error while removing the file: {e}")
-        raise
+        raise Exception (f"Unexpected error while removing the file: {e}")
 
 
 # Converte o arquivo .xls (formato tabela HTML) para o formato .xlsx
@@ -95,8 +94,7 @@ def convert_file_html(file_path):
         remove_file(file_path)
         return new_file_path
     except Exception as e:
-        print(f"Error converting file: {e}")
-        raise
+        raise Exception (f"Error converting file: {e}")
 
 
 # Renomeia o arquivo
@@ -109,14 +107,13 @@ def rename_file(file_path, file_type):
         # Verifica se o arquivo com o novo nome já existe
         if os.path.exists(new_path):
             os.remove(new_path)
-            print(f"Arquivo existente '{new_name}' foi removido.")
+            logging.info(f"Arquivo existente '{new_name}' foi removido.")
 
         os.rename(file_path, new_path)
         return new_path
 
     except Exception as e:
-        print(f"Error renaming file: {e}")
-        raise
+        raise Exception (f"Error renaming file: {e}")
 
 
 def rename_file_atual_month(caminho_arquivo, tipo):
@@ -130,14 +127,13 @@ def rename_file_atual_month(caminho_arquivo, tipo):
         os.rename(caminho_arquivo, caminho_novo)
         return caminho_novo
     except FileNotFoundError:
-        print(f"Arquivo não encontrado: {caminho_arquivo}")
-        raise
+        raise Exception (f"Arquivo não encontrado: {caminho_arquivo}")
+    
     except PermissionError:
-        print(f"Permissão negada para renomear o arquivo: {caminho_arquivo}")
-        raise
+        raise Exception (f"Permissão negada para renomear o arquivo: {caminho_arquivo}")
+    
     except Exception as e:
-        print(f"Erro inesperado ao renomear o arquivo: {e}")
-        raise
+        raise Exception (f"Erro inesperado ao renomear o arquivo: {e}")
 
 
 def rename_file_previous_month(caminho_arquivo, tipo):
@@ -151,11 +147,10 @@ def rename_file_previous_month(caminho_arquivo, tipo):
         os.rename(caminho_arquivo, caminho_novo)
         return caminho_novo
     except FileNotFoundError:
-        print(f"Arquivo não encontrado: {caminho_arquivo}")
-        raise
+        raise Exception (f"Arquivo não encontrado: {caminho_arquivo}")
+    
     except PermissionError:
-        print(f"Permissão negada para renomear o arquivo: {caminho_arquivo}")
-        raise
+        raise Exception (f"Permissão negada para renomear o arquivo: {caminho_arquivo}")
+    
     except Exception as e:
-        print(f"Erro inesperado ao renomear o arquivo: {e}")
-        raise
+        raise Exception (f"Erro inesperado ao renomear o arquivo: {e}")

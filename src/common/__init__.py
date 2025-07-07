@@ -7,6 +7,7 @@ import sys
 import pyotp
 import calendar
 from datetime import datetime, timedelta
+import logging
 
 # Third-party libs
 import pandas as pd
@@ -35,6 +36,7 @@ __all__ = [
     "calendar",
     "datetime",
     "timedelta",
+    "logging",
 
     # Third-party
     "pd",

@@ -1,6 +1,7 @@
 from common import table_handler
 from src.common import ui_actions, file_handler, google_drive
 from src.app import scheduler
+import logging
 
 def login_ileva(driver, login_url, home_url, selectors, values):
     ui_actions.carregar_url(driver, login_url)
@@ -22,7 +23,7 @@ def coleta(service, driver, atributos, url, folder_id, tipo, colunas_sensiveis):
         google_drive.upload_report(service, caminho_arquivo, folder_id)
         file_handler.remove_file(caminho_arquivo)
     except Exception as e:
-        print(f"Erro ao coletar {tipo}: {e}\n")
+        logging.exception(f"Erro ao coletar {tipo}: {e}\n")
 
 def coleta_ileva(service, driver, selectors, configs):
     dia, dia_semana, hora = scheduler.get_datas()
