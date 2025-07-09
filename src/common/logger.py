@@ -21,6 +21,16 @@ def log_config(base_path):
             logging.StreamHandler()
         ]
     )
-
     # Exporta o caminho do arquivo para uso externo
     return full_log_path
+
+
+# verifica se houve logging.exception (nivel = ERROR com traceback)
+def houve_erro_no_log(log_path):
+    if not os.path.exists(log_path):
+        return False
+
+    with open(log_path, "r", encoding="utf-8") as f:
+        conteudo = f.read()
+        return "ERROR" in conteudo
+    

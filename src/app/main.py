@@ -84,7 +84,10 @@ def main(base_dir):
         logging.exception (f"Error in main: {e}")
 
     finally:
-        google_drive.upload_log(service, log_path, configs["log"]["log_folder_id"])
+        if logger.houve_erro_no_log(log_path):
+            google_drive.upload_log(service, log_path, configs["log"]["error_log_folder_id"])
+        else:    
+            google_drive.upload_log(service, log_path, configs["log"]["normal_log_folder_id"])
 
 if __name__ == "__main__":
     import os

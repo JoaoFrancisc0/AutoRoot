@@ -146,6 +146,10 @@ def verificacao_data_kommo(dia, dia_semana, hora):
 
 
 def agendamento_coleta_kommo(dia, dia_semana, hora):
+    # Manutenção
+    if (True):
+        return False
+
     if (testando):
         return True
     
@@ -262,7 +266,11 @@ def agendamento_veiculo_suporte_veniti(dia, dia_semana, hora):
     return False
 
 
-def agendamento_contrato(dia, dia_semana, hora):    
+def agendamento_contrato(dia, dia_semana, hora):  
+    # Manutenção
+    if (True):
+        return False
+
     if (testando):
         return True
 
