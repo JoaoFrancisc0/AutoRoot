@@ -49,6 +49,7 @@ def coleta_geral(service, driver, selectors, url, folder_id, tipo):
 def coleta_sga(service, driver, selectors, configs):
     dia, dia_semana, hora = scheduler.get_datas()
     if (scheduler.verificacao_data_sga(dia, dia_semana, hora)):
+        logging.info("####################   SGA   ####################\n")        
         url = configs["url"]
         values = configs["credenciais"]
         folder_id = configs["folder_id"]
@@ -62,31 +63,41 @@ def coleta_sga(service, driver, selectors, configs):
         assistencia = selectors["assistencia"]
 
         if (scheduler.agendamento_boleto_fechamento_mensal(dia, dia_semana, hora)):
+            logging.info("Relatório --> Boleto Fechamento Mensal\n")
             coleta_mensal(service, driver, supervisao["boleto_fechamento"], url["boleto_url"], folder_id["boleto_fechamento_folder_id"], tipo="boleto_fechamento", fechamento=True)
         
         if (scheduler.agendamento_boleto_fechamento_semanal(dia, dia_semana, hora)):
+            logging.info("Relatório --> Boleto Fechamento Semanal\n")
             coleta_mensal(service, driver, supervisao["boleto_fechamento"], url["boleto_url"], folder_id["boleto_fechamento_folder_id"], tipo="boleto_fechamento", fechamento=False)
 
         if (scheduler.agendamento_veiculo_evasao_mensal(dia, dia_semana, hora)):
+            logging.info("Relatório --> Veiculo Evasão Mensal\n")
             coleta_mensal(service, driver, supervisao["veiculo_evasao"], url["veiculo_url"], folder_id["veiculo_evasao_folder_id"], tipo="veiculo_evasao", fechamento=True)
 
         if (scheduler.agendamento_veiculo_evasao_semanal(dia, dia_semana, hora)):
+            logging.info("Relatório --> Veiculo Evasão Semanal\n")
             coleta_mensal(service, driver, supervisao["veiculo_evasao"], url["veiculo_url"], folder_id["veiculo_evasao_folder_id"], tipo="veiculo_evasao", fechamento=False)
 
         if (scheduler.agendamento_veiculo_ativo_mensal(dia, dia_semana, hora)):
+            logging.info("Relatório --> Veiculo Ativo Mensal\n")
             coleta_mensal(service, driver, supervisao["veiculo_ativo"], url["veiculo_url"], folder_id["veiculo_ativo_folder_id"], tipo="veiculo_ativo", fechamento=True)
         
         if (scheduler.agendamento_veiculo_ativo_semanal(dia, dia_semana, hora)):
+            logging.info("Relatório --> Veiculo Ativo Semanal\n")
             coleta_mensal(service, driver, supervisao["veiculo_ativo"], url["veiculo_url"], folder_id["veiculo_ativo_folder_id"], tipo="veiculo_ativo", fechamento=False)
 
         if (scheduler.agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora)):
+            logging.info("Relatório --> Veiculo Cancelamentos com Rastreador\n")
             coleta_mensal(service, driver, rastreamento["veiculos_cancelamentos_com_rastreador"], url["veiculo_url"], folder_id["veiculo_cancelamento_com_rastreador_folder_id"], tipo="veiculo_cancelamento_com_rastreador", fechamento=False)
         
         if (scheduler.agendamento_veiculo_suporte_veniti(dia, dia_semana, hora)):
+            logging.info("Relatório --> Veiculo Suporte Veniti\n")
             coleta_geral(service, driver, assistencia["suporte_veniti"], url["veiculo_url"], folder_id["root_folder_id"], tipo="suporte_veniti")
 
         if (scheduler.agendamento_contrato(dia, dia_semana, hora)):
+            logging.info("Relatório --> Contrato\n")
             coleta_geral(service, driver, evento["contrato"], url["veiculo_url"], folder_id["root_folder_id"], tipo="contrato")
 
         if(scheduler.agendamento_boleto_aberto(dia, dia_semana, hora)):
+            logging.info("Relatório --> Boleto Aberto\n")
             coleta_geral(service, driver, rastreamento["boleto_aberto"], url["boleto_url"], folder_id["root_folder_id"], tipo="boleto_aberto")

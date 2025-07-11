@@ -31,6 +31,7 @@ def coleta_mensal(service, driver, atributos, periodo, url, folder_id, tipo):
 def coleta_pabxvip(service, driver, selectors, configs):
     dia, dia_semana, hora = scheduler.get_datas()
     if (scheduler.verificacao_data_pabxvip(dia, dia_semana, hora)):
+        logging.info("#################### Pabxvip ####################\n")
         url = configs["url"]
         values = configs["credenciais"]
         folder_id = configs["folder_id"]
@@ -41,4 +42,5 @@ def coleta_pabxvip(service, driver, selectors, configs):
         tw = selectors["tw"]
 
         if (scheduler.agendamento_coleta_tw(dia, dia_semana, hora)):
+            logging.info("Relatório --> Tw\n")
             coleta_mensal(service, driver, tw["atributos"], tw["periodo"], url["atendimento_url"], folder_id["tw_folder_id"], tipo="tw")

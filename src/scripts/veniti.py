@@ -3,6 +3,7 @@ from src.app import scheduler
 import logging
 
 def login_veniti(driver, login_url, home_url, selectors, values):
+    logging.info("#################### Veniti ####################\n")
     ui_actions.carregar_url(driver, login_url)
     ui_actions.processo_de_login(driver, selectors["login"], values)
     ui_actions.confirmar_login(driver, selectors["confirmacao"])
@@ -67,6 +68,8 @@ def coleta_veniti(service, driver, selectors, configs):
 
         selectors = selectors["relatorio"]
         if (scheduler.agendamento_coleta_atendimentos(dia, dia_semana, hora)):
+            logging.info("Relatório --> Atendimentos\n")
             coleta_atendimentos(service, driver, selectors["atendimentos"], url["atendimento_url"], folder_id["atendimentos_folder_id"], tipo="atendimentos")
         if (scheduler.agendamento_coleta_conjuntura(dia, dia_semana, hora)):
+            logging.info("Relatório --> Conjuntura\n")
             coleta_conjuntura(service, driver, selectors["conjuntura"], url["conjuntura_url"], folder_id["conjuntura_folder_id"], tipo="conjuntura")

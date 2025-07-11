@@ -26,6 +26,7 @@ def coleta_alfacb(service, driver, selectors, configs):
     dia, dia_semana, hora = scheduler.get_datas()
     ultimo_dia = scheduler.get_last_day_of_the_month()
     if (scheduler.verificacao_data_alfacb(dia, dia_semana, hora, ultimo_dia)):
+        logging.info("#################### Alfacb ####################\n")
         url = configs["url"]
         values = configs["credenciais"]
         folder_id = configs["folder_id"]
@@ -35,4 +36,5 @@ def coleta_alfacb(service, driver, selectors, configs):
         selectors = selectors["relatorio"]["Ordem_de_servico"]
         
         if (scheduler.agendamento_coleta_ordem_de_servico(dia, dia_semana, hora, ultimo_dia)):
+            logging.info("Relatório --> Ordem de Servico\n")
             coleta_mensal(service, driver, selectors["atributos"], selectors["periodo"], url["Ordem_de_servico_url"], folder_id["ordem_de_servico_folder_id"], tipo="ordem_de_servico")

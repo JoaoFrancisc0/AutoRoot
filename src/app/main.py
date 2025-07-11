@@ -59,9 +59,8 @@ def main(base_dir):
     try:
         log_path = logger.log_config(base_dir)
 
-        logging.info("Automação iniciada.")
-
         service = autenticar_google_drive(base_dir)
+
         driver = inicializar_driver()
         driver.maximize_window()
         

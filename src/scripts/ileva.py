@@ -28,6 +28,7 @@ def coleta(service, driver, atributos, url, folder_id, tipo, colunas_sensiveis):
 def coleta_ileva(service, driver, selectors, configs):
     dia, dia_semana, hora = scheduler.get_datas()
     if (scheduler.verificacao_data_ileva(dia, dia_semana, hora)):
+        logging.info("#################### Ileva ####################\n")
         url = configs["url"]
         values = configs["credenciais"]
         folder_id = configs["folder_id"]
@@ -36,11 +37,15 @@ def coleta_ileva(service, driver, selectors, configs):
 
         selectors = selectors["relatorio"]
         if (scheduler.agendamento_coleta_custo(dia, dia_semana, hora)):
+            logging.info("Relatório --> Custo\n")
             coleta(service, driver, selectors["custo"], url["custo_url"], folder_id["root_folder_id"], tipo="custo", colunas_sensiveis=[5,6,7,8,9,10,11,12,13,14])
         if (scheduler.agendamento_coleta_compra(dia, dia_semana, hora)):
+            logging.info("Relatório --> Compra\n")
             coleta(service, driver, selectors["compra"], url["compra_url"], folder_id["root_folder_id"], tipo="compra", colunas_sensiveis=[])
         if (scheduler.agendamento_coleta_envolvido(dia, dia_semana, hora)):
+            logging.info("Relatório --> Envolvido\n")
             coleta(service, driver, selectors["envolvido"], url["envolvido_url"], folder_id["root_folder_id"], tipo="envolvido", colunas_sensiveis=[])
         if (scheduler.agendamento_coleta_pagamento(dia, dia_semana, hora)):
+            logging.info("Relatório --> Pagamento\n")
             coleta(service, driver, selectors["pagamento"], url["pagamento_url"], folder_id["root_folder_id"], tipo="pagamento", colunas_sensiveis=[])
             

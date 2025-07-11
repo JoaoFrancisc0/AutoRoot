@@ -21,6 +21,7 @@ def coleta_geral(service, driver, atributos, folder_id, tipo):
 def coleta_kommo(service, driver, selectors, configs):
     dia, dia_semana, hora = scheduler.get_datas()
     if (scheduler.verificacao_data_kommo(dia, dia_semana, hora)):
+        logging.info("#################### Kommo ####################\n")
         url = configs["url"]
         values = configs["credenciais"]
         folder_id = configs["folder_id"]
@@ -31,4 +32,5 @@ def coleta_kommo(service, driver, selectors, configs):
         colisao = selectors["colisao"]
 
         if (scheduler.agendamento_coleta_kommo(dia, dia_semana, hora)):
+            logging.info("Relatório --> Colisão\n")
             coleta_geral(service, driver, colisao["atributos"], folder_id["colisao_folder_id"], tipo="colisao")
