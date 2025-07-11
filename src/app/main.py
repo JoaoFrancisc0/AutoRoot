@@ -63,6 +63,7 @@ def main(base_dir):
 
         service = autenticar_google_drive(base_dir)
         driver = inicializar_driver()
+        driver.maximize_window()
         
         configs = carregar_configuracoes(base_dir)
         
