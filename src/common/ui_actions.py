@@ -24,23 +24,23 @@ def preencher_periodo_mensal_atual(driver, selectors):
     detectar_e_preencher_campo_data(driver, selectors["final"], dataFinal)
 
 
-def preencher_periodo_mensal_parcial(driver, selectors):
+def preencher_periodo_mensal_parcial(driver, selectors, dataInicio="01"):
     numMes = date_utils.get_month_number()
     numAno = date_utils.get_year()
     numHojeDia = date_utils.get_day()
         
-    dataInicio = f"01/{numMes}/{numAno}"
+    dataInicio = f"{dataInicio}/{numMes}/{numAno}"
     dataFinal = f"{numHojeDia}/{numMes}/{numAno}"
     detectar_e_preencher_campo_data(driver, selectors["inicio"], dataInicio)
     detectar_e_preencher_campo_data(driver, selectors["final"], dataFinal)
 
 
-def preencher_periodo_mensal_passado(driver, selectors):
+def preencher_periodo_mensal_passado(driver, selectors, dataInicio="01"):
     numMes = date_utils.get_previous_month_number()
     numAno = date_utils.get_previous_year()
     numUltimoDia = date_utils.get_last_day_of_the_month(int(numAno), int(numMes))
         
-    dataInicio = f"01/{numMes}/{numAno}"
+    dataInicio = f"{dataInicio}/{numMes}/{numAno}"
     dataFinal = f"{numUltimoDia}/{numMes}/{numAno}"
     detectar_e_preencher_campo_data(driver, selectors["inicio"], dataInicio)
     detectar_e_preencher_campo_data(driver, selectors["final"], dataFinal)    
@@ -156,6 +156,7 @@ def processo_de_login(driver, selectors, valuesLogin):
         if campo in valuesLogin:
             preencher_elemento(elemento, valuesLogin[campo])
         else:
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", elemento)
             clicar_elemento(elemento)
 
 
