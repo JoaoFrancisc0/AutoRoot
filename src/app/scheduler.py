@@ -170,10 +170,13 @@ def verificacao_data_sga(dia, dia_semana, hora):
         agendamento_veiculo_evasao_semanal(dia, dia_semana, hora) or
         agendamento_veiculo_ativo_mensal(dia, dia_semana, hora) or
         agendamento_veiculo_ativo_semanal(dia, dia_semana, hora) or
-        agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora) or 
+        agendamento_veiculo_cancelamentos_com_rastreador_mensal(dia, dia_semana, hora) or
         agendamento_veiculo_suporte_veniti(dia, dia_semana, hora) or
         agendamento_contrato(dia, dia_semana, hora) or
-        agendamento_boleto_aberto(dia, dia_semana, hora)):
+        agendamento_boleto_aberto(dia, dia_semana, hora) or
+        agendamento_veiculo_base_ativo(dia, dia_semana, hora) or
+        agendamento_veiculo_base_evasao(dia, dia_semana, hora) or
+        agendamento_veiculo_geral(dia, dia_semana, hora)):
         return True
     return False
 
@@ -246,7 +249,7 @@ def agendamento_veiculo_ativo_semanal(dia, dia_semana, hora):
     return False
 
 
-def agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora):
+def agendamento_veiculo_cancelamentos_com_rastreador_mensal(dia, dia_semana, hora):
     if (testando):
         return True
     
@@ -286,5 +289,35 @@ def agendamento_boleto_aberto(dia, dia_semana, hora):
 
     # Dia de semana e hora 9, 10, 11, 14, 15, 16
     if (dia_semana not in ["sábado", "domingo"] and hora in [9, 10, 11, 14, 15, 16]):
+        return True
+    return False
+
+
+def agendamento_veiculo_base_ativo(dia, dia_semana, hora):
+    if (testando):
+        return True
+
+    # Sexta-feira e hora 0
+    if (dia_semana == "sexta-feira" and hora == 0):
+        return True
+    return False
+
+
+def agendamento_veiculo_base_evasao(dia, dia_semana, hora):
+    if (testando):
+        return True
+
+    # Sexta-feira e hora 0
+    if (dia_semana == "sexta-feira" and hora == 0):
+        return True
+    return False
+
+
+def agendamento_veiculo_geral(dia, dia_semana, hora):
+    if (testando):
+        return True
+
+    # Sexta-feira e hora 0
+    if (dia_semana == "sexta-feira" and hora == 0):
         return True
     return False

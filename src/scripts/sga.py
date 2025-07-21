@@ -61,6 +61,7 @@ def coleta_sga(service, driver, selectors, configs):
         rastreamento = selectors["rastreamento"]
         evento = selectors["evento"]
         assistencia = selectors["assistencia"]
+        gerencia = selectors["gerencia"]
 
         if (scheduler.agendamento_boleto_fechamento_mensal(dia, dia_semana, hora)):
             logging.info("Relatório --> Boleto Fechamento Mensal\n")
@@ -86,8 +87,8 @@ def coleta_sga(service, driver, selectors, configs):
             logging.info("Relatório --> Veiculo Ativo Semanal\n")
             coleta_mensal(service, driver, supervisao["veiculo_ativo"], url["veiculo_url"], folder_id["veiculo_ativo_folder_id"], tipo="veiculo_ativo", fechamento=False)
 
-        if (scheduler.agendamento_veiculo_cancelamentos_com_rastreador(dia, dia_semana, hora)):
-            logging.info("Relatório --> Veiculo Cancelamentos com Rastreador\n")
+        if (scheduler.agendamento_veiculo_cancelamentos_com_rastreador_mensal(dia, dia_semana, hora)):
+            logging.info("Relatório --> Veiculo Cancelamentos com Rastreador Mensal\n")
             coleta_mensal(service, driver, rastreamento["veiculos_cancelamentos_com_rastreador"], url["veiculo_url"], folder_id["veiculo_cancelamento_com_rastreador_folder_id"], tipo="veiculo_cancelamento_com_rastreador", fechamento=False)
         
         if (scheduler.agendamento_veiculo_suporte_veniti(dia, dia_semana, hora)):
@@ -101,3 +102,15 @@ def coleta_sga(service, driver, selectors, configs):
         if(scheduler.agendamento_boleto_aberto(dia, dia_semana, hora)):
             logging.info("Relatório --> Boleto Aberto\n")
             coleta_geral(service, driver, rastreamento["boleto_aberto"], url["boleto_url"], folder_id["root_folder_id"], tipo="boleto_aberto")
+
+        if (scheduler.agendamento_veiculo_base_ativo(dia, dia_semana, hora)):
+            logging.info("Relatório --> Veiculo Base Ativo\n")
+            coleta_geral(service, driver, gerencia["veiculo_base_ativo"], url["veiculo_url"], folder_id["veiculo_gerencia_folder_id"], tipo="veiculo_base_ativo")
+
+        if (scheduler.agendamento_veiculo_base_evasao(dia, dia_semana, hora)):
+            logging.info("Relatório --> Veiculo Base Evasão\n")
+            coleta_geral(service, driver, gerencia["veiculo_base_evasao"], url["veiculo_url"], folder_id["veiculo_gerencia_folder_id"], tipo="veiculo_base_evasao")
+        
+        if (scheduler.agendamento_veiculo_geral(dia, dia_semana, hora)):
+            logging.info("Relatório --> Veiculo Geral\n")
+            coleta_geral(service, driver, gerencia["veiculo_geral"], url["veiculo_url"], folder_id["veiculo_gerencia_folder_id"], tipo="veiculo_geral")
