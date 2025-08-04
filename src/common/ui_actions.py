@@ -192,5 +192,6 @@ def resolver_captcha(driver, login_url, site_name):
 def resolver_2FA(driver, selector_botao, selecotr_2FA, site_name):
     codigo = auth_challenge_solver.twoFA(site_name)
     detectar_e_preencher_elemento(driver, selecotr_2FA, codigo)
+    rolagem_para_elemento(driver, selector_botao)
     detectar_e_clicar_elemento(driver, selector_botao)
     
