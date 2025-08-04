@@ -1,4 +1,4 @@
-from src.common import driver_manager, config_loader, google_drive, logger
+from src.common import driver_manager, config_loader, google_drive, logger, file_handler
 from src.scripts import alfacb, sga, veniti, ileva, pabxvip, kommo
 import logging
 
@@ -57,14 +57,13 @@ def automacao_kommo(service, driver, selectors, configs):
 
 def main(base_dir):
     try:
+        configs = carregar_configuracoes(base_dir)
         log_path = logger.log_config(base_dir)
 
         service = autenticar_google_drive(base_dir)
 
         driver = inicializar_driver()
         driver.maximize_window()
-        
-        configs = carregar_configuracoes(base_dir)
         
         automacao_alfacb(service, driver, configs["alfacb_selectors"], configs["alfacb_configs"])
 
@@ -85,6 +84,9 @@ def main(base_dir):
 
     finally:
         if logger.houve_erro_no_log(log_path):
+            caminhos_imagens = file_handler.listar_logs()
+            google_drive.upload_images(service, caminhos_imagens, configs["log"]["error_log_folder_id"])
+            file_handler.remove_residual_logs(caminhos_imagens)
             google_drive.upload_log(service, log_path, configs["log"]["error_log_folder_id"])
         else:    
             google_drive.upload_log(service, log_path, configs["log"]["normal_log_folder_id"])

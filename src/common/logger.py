@@ -2,6 +2,7 @@
 import logging
 from datetime import datetime
 import os
+from src.common import file_handler
 
 def log_config(base_path):
     # Garante que a pasta de logs existe
@@ -33,4 +34,26 @@ def houve_erro_no_log(log_path):
     with open(log_path, "r", encoding="utf-8") as f:
         conteudo = f.read()
         return "ERROR" in conteudo
+    
+
+def print_do_erro(driver):
+    try:
+        print_filename = datetime.now().strftime("log_%Y-%m-%d_%H-%M-%S.png")
+        # Obtém a pasta de Downloads do usuário
+        downloads_path = os.path.join(os.path.expanduser("~"), "Downloads")
+
+        # Caminho do print
+        file_path = os.path.join(downloads_path, print_filename)
+
+        # Remove o arquivo se já existir
+        if os.path.exists(file_path):
+            file_handler.remove_file(file_path)
+
+        # Salva o screenshot na pasta de downloads
+        driver.save_screenshot(file_path)
+        logging.info("Captura de tela do erro feita com sucesso!\n")
+
+    except Exception as e:
+        logging.error(f"Erro ao capturar a tela: {e}\n")
+        raise e
     

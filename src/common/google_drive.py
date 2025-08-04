@@ -75,3 +75,28 @@ def upload_log(service, log_file_path, log_folder_id):
 
     except Exception as e:
         print(f"Error uploading log: {e}")
+
+
+def upload_images(service, image_paths, folder_id):
+    for image_path in image_paths:
+        try:
+            file_name = os.path.basename(image_path)
+
+            media = MediaFileUpload(image_path, mimetype="image/png")
+
+            file_metadata = {
+                "name": file_name,
+                "parents": [folder_id],
+                "mimeType": "image/png"
+            }
+
+            file = service.files().create(
+                body=file_metadata,
+                media_body=media,
+                fields="id, name"
+            ).execute()
+
+            print(f"Imagem enviada ao Google Drive: {file.get('name')}")
+
+        except Exception as e:
+            print(f"Erro ao enviar imagem {image_path}: {e}")

@@ -1,4 +1,4 @@
-from src.common import auth_challenge_solver, WebDriverWait, EC, time, date_utils, logging
+from src.common import auth_challenge_solver, WebDriverWait, EC, time, date_utils, logging, logger
 
 def carregar_url(driver, url, timeout=10):
     driver.get(url)
@@ -6,7 +6,11 @@ def carregar_url(driver, url, timeout=10):
 
 
 def aguardar_url(driver, url, timeout=15):
-    WebDriverWait(driver, timeout).until(lambda d: d.current_url == url)
+    try:
+        WebDriverWait(driver, timeout).until(lambda d: d.current_url == url)
+    except Exception as e:
+        logger.print_do_erro(driver)
+        raise TimeoutError(f"Erro ao aguardar URL {url}, url atual: {driver.current_url}. Erro: {e}")
 
 
 def preencher_elemento(elemento, value):
@@ -101,6 +105,7 @@ def detectar_elemento(driver, by, value, timeout=10):
         elemento = WebDriverWait(driver, timeout).until(EC.presence_of_element_located((by, value)))
         return elemento
     except Exception:
+        logger.print_do_erro(driver)
         raise
 
 
@@ -194,4 +199,12 @@ def resolver_2FA(driver, selector_botao, selecotr_2FA, site_name):
     detectar_e_preencher_elemento(driver, selecotr_2FA, codigo)
     rolagem_para_elemento(driver, selector_botao)
     detectar_e_clicar_elemento(driver, selector_botao)
+
+
+def rolagem_para_elemento(driver, selector):
+    by = selector['by']
+    value = selector['value']
+    elemento = detectar_elemento(driver, by, value)
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", elemento)
+    time.sleep(1)  # Aguarda a rolagem ser processada
     

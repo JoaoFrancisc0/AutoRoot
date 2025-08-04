@@ -154,3 +154,29 @@ def rename_file_previous_month(caminho_arquivo, tipo):
     
     except Exception as e:
         raise Exception (f"Erro inesperado ao renomear o arquivo: {e}")
+
+
+def remove_residual_logs(caminho_imagens):
+    for caminho_arquivo in caminho_imagens:
+        try:
+            if os.path.exists(caminho_arquivo):
+                os.remove(caminho_arquivo)
+        except Exception as e:
+            logging.error(f"Erro ao remover arquivo residual {caminho_arquivo}: {e}")
+            raise
+
+
+def listar_logs():
+    # Obtém o caminho da pasta Downloads do usuário
+    downloads_path = os.path.join(os.path.expanduser("~"), "Downloads")
+    
+    # Lista para armazenar os caminhos dos arquivos encontrados
+    caminhos_imagens = []
+
+    # Verifica cada arquivo na pasta
+    for nome_arquivo in os.listdir(downloads_path):
+        if nome_arquivo.startswith("log_") and nome_arquivo.endswith(".png"):
+            caminho_completo = os.path.join(downloads_path, nome_arquivo)
+            caminhos_imagens.append(caminho_completo)
+
+    return caminhos_imagens
