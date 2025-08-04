@@ -11,13 +11,13 @@ def login_pabxvip(driver, login_url, home_url, selectors, values):
 def coleta_mensal(service, driver, atributos, periodo, url, folder_id, tipo):
     try:
         ui_actions.carregar_url(driver, url)
-        if (date_utils.get_day() == 1):
+        if (date_utils.get_day() == "01"):
             ui_actions.preencher_periodo_mensal_passado(driver, periodo)
         else:
             ui_actions.preencher_periodo_mensal_atual(driver, periodo)
         ui_actions.detectar_e_clicar_n_elementos(driver, atributos)
         caminho_arquivo = file_handler.wait_download(tipo)
-        if (date_utils.get_day() == 1):
+        if (date_utils.get_day() == "01"):
             caminho_arquivo = file_handler.rename_file_previous_month(caminho_arquivo, tipo)
         else:
             caminho_arquivo = file_handler.rename_file_atual_month(caminho_arquivo, tipo)

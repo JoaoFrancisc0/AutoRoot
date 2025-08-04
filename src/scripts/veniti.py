@@ -14,7 +14,7 @@ def coleta_atendimentos(service, driver, selectors, url, folder_id, tipo):
     try:
         ui_actions.carregar_url(driver, url)
         ui_actions.detectar_e_clicar_n_elementos(driver, selectors["busca"])
-        if date_utils.get_day() == 1:
+        if date_utils.get_day() == "01":
             ui_actions.preencher_periodo_mensal_passado(driver, selectors["periodo"])
         else:
             ui_actions.preencher_periodo_mensal_atual(driver, selectors["periodo"])
@@ -22,7 +22,7 @@ def coleta_atendimentos(service, driver, selectors, url, folder_id, tipo):
         ui_actions.detectar_e_aguardar_valor_em_elemento(driver, selectors["download"]["status"], "EXPORTADO E BAIXADO")
         ui_actions.detectar_e_clicar_elemento(driver, selectors["download"]["download"])
         caminho_arquivo = file_handler.wait_download(tipo)
-        if date_utils.get_day() == 1:
+        if date_utils.get_day() == "01":
             caminho_arquivo = file_handler.rename_file_previous_month(caminho_arquivo, tipo)
         else:
             caminho_arquivo = file_handler.rename_file_atual_month(caminho_arquivo, tipo)
@@ -37,13 +37,13 @@ def coleta_conjuntura(service, driver, selectors, url, folder_id, tipo):
     try:
         ui_actions.carregar_url(driver, url)
         ui_actions.detectar_e_clicar_elemento(driver, selectors["busca"])
-        if date_utils.get_day() == 1:
+        if date_utils.get_day() == "01":
             ui_actions.preencher_periodo_mensal_passado(driver, selectors["periodo"])
         else:
             ui_actions.preencher_periodo_mensal_atual(driver, selectors["periodo"])
         ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atributos"])
         caminho_arquivo = file_handler.wait_download(tipo)
-        if date_utils.get_day() == 1:
+        if date_utils.get_day() == "01":
             caminho_arquivo = file_handler.rename_file_previous_month(caminho_arquivo, tipo)
             month_filter = f"/{date_utils.get_two_months_ago_month_number()}/"
             table_handler.remove_lines_outside_month_filter(caminho_arquivo, 3, month_filter)
