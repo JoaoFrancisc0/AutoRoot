@@ -92,11 +92,12 @@ def detectar_e_aguardar_valor_em_elemento(driver, selectors, valorEsperado, time
     raise TimeoutError(f"Erro timeout ao aguardar {valorEsperado}.")
 
 
-def clicar_elemento(elemento):
+def clicar_elemento(driver, elemento):
     try:
         elemento.click()
         time.sleep(1)
     except Exception:
+        logger.print_do_erro(driver)
         raise
 
 
@@ -126,7 +127,7 @@ def detectar_e_clicar_elemento(driver, *args):
             by = args[0]
             value = args[1]
         elemento = detectar_elemento(driver, by, value)
-        clicar_elemento(elemento)
+        clicar_elemento(driver, elemento)
     except Exception as e:
         raise Exception(f"Error clicking element: {value}")
 
@@ -162,7 +163,7 @@ def processo_de_login(driver, selectors, valuesLogin):
             preencher_elemento(elemento, valuesLogin[campo])
         else:
             driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", elemento)
-            clicar_elemento(elemento)
+            clicar_elemento(driver, elemento)
 
 
 def processo_de_login_com_reCAPTCHA(driver, selectors, valuesLogin, login_url, site_name):
