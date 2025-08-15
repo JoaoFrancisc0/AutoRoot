@@ -5,7 +5,7 @@ def carregar_url(driver, url, timeout=10):
     WebDriverWait(driver, timeout).until(lambda d: d.current_url == url)
 
 
-def aguardar_url(driver, url, timeout=15):
+def aguardar_url(driver, url, timeout=30):
     try:
         WebDriverWait(driver, timeout).until(lambda d: d.current_url == url)
     except Exception as e:

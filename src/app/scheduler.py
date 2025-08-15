@@ -97,6 +97,10 @@ def verificacao_data_ileva(dia,dia_semana, hora):
 
 
 def agendamento_coleta_custo(dia, dia_semana, hora):
+    # Manutenção
+    if (True):
+        return False
+    
     if (testando):
         return True
     
@@ -107,6 +111,10 @@ def agendamento_coleta_custo(dia, dia_semana, hora):
 
 
 def agendamento_coleta_compra(dia, dia_semana, hora):
+    # Manutenção
+    if (True):
+        return False
+    
     if (testando):
         return True
     
@@ -117,6 +125,10 @@ def agendamento_coleta_compra(dia, dia_semana, hora):
 
 
 def agendamento_coleta_envolvido(dia, dia_semana, hora):
+    # Manutenção
+    if (True):
+        return False
+    
     if (testando):
         return True
     
@@ -127,6 +139,10 @@ def agendamento_coleta_envolvido(dia, dia_semana, hora):
 
 
 def agendamento_coleta_pagamento(dia, dia_semana, hora):
+    # Manutenção
+    if (True):
+        return False
+    
     if (testando):
         return True
     
