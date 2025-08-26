@@ -5,12 +5,12 @@ def carregar_url(driver, url, timeout=60):
     WebDriverWait(driver, timeout).until(lambda d: d.current_url == url)
 
 
-def aguardar_url(driver, url, timeout=60):
+def aguardar_url(driver, url, timeout=120):
     try:
         WebDriverWait(driver, timeout).until(lambda d: d.current_url == url)
     except Exception as e:
         logger.print_do_erro(driver)
-        raise TimeoutError(f"Erro ao aguardar URL {url}, url atual: {driver.current_url}. Erro: {e}")
+        raise TimeoutError(f"Erro ao aguardar URL {url}, url atual: {driver.current_url}, timeout: {timeout}. Erro: {e}")
 
 
 def preencher_elemento(elemento, value):
