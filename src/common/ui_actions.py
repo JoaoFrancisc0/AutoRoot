@@ -1,11 +1,11 @@
 from src.common import auth_challenge_solver, WebDriverWait, EC, time, date_utils, logging, logger
 
-def carregar_url(driver, url, timeout=10):
+def carregar_url(driver, url, timeout=60):
     driver.get(url)
     WebDriverWait(driver, timeout).until(lambda d: d.current_url == url)
 
 
-def aguardar_url(driver, url, timeout=30):
+def aguardar_url(driver, url, timeout=60):
     try:
         WebDriverWait(driver, timeout).until(lambda d: d.current_url == url)
     except Exception as e:

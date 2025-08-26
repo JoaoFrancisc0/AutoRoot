@@ -198,6 +198,10 @@ def verificacao_data_sga(dia, dia_semana, hora):
 
 
 def agendamento_boleto_fechamento_mensal(dia, dia_semana, hora):
+    # Manutenção
+    if (True):
+        return False
+    
     if (testando):
         return True
     # Dia 5 se não for fim de semana ou dia 6 ou 7 se for segunda-feira
@@ -210,6 +214,10 @@ def agendamento_boleto_fechamento_mensal(dia, dia_semana, hora):
 
 
 def agendamento_boleto_fechamento_semanal(dia, dia_semana, hora):
+    # Manutenção
+    if (True):
+        return False
+    
     if (testando):
         return True
 
@@ -220,6 +228,10 @@ def agendamento_boleto_fechamento_semanal(dia, dia_semana, hora):
 
 
 def agendamento_veiculo_evasao_mensal(dia, dia_semana, hora):
+    # Manutenção
+    if (True):
+        return False
+    
     if (testando):
         return True
     
@@ -233,6 +245,10 @@ def agendamento_veiculo_evasao_mensal(dia, dia_semana, hora):
 
 
 def agendamento_veiculo_evasao_semanal(dia, dia_semana, hora):
+    # Manutenção
+    if (True):
+        return False
+    
     if (testando):
         return True
 
@@ -243,6 +259,10 @@ def agendamento_veiculo_evasao_semanal(dia, dia_semana, hora):
 
 
 def agendamento_veiculo_ativo_mensal(dia, dia_semana, hora):
+    # Manutenção
+    if (True):
+        return False
+    
     if (testando):
         return True
 
@@ -256,6 +276,10 @@ def agendamento_veiculo_ativo_mensal(dia, dia_semana, hora):
 
 
 def agendamento_veiculo_ativo_semanal(dia, dia_semana, hora):
+    # Manutenção
+    if (True):
+        return False
+    
     if (testando):
         return True
     
