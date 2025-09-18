@@ -64,6 +64,7 @@ def main(base_dir):
 
         driver = inicializar_driver()
         driver.maximize_window()
+        logging.info("==========  AutoRoot 1.1.0  ==========")
         
         automacao_alfacb(service, driver, configs["alfacb_selectors"], configs["alfacb_configs"])
 

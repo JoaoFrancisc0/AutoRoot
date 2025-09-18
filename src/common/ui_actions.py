@@ -5,12 +5,21 @@ def carregar_url(driver, url, timeout=60):
     WebDriverWait(driver, timeout).until(lambda d: d.current_url == url)
 
 
-def aguardar_url(driver, url, timeout=120):
+# def aguardar_url(driver, url, timeout=120):
+#     try:
+#         WebDriverWait(driver, timeout).until(lambda d: d.current_url == url)
+#     except Exception as e:
+#         logger.print_do_erro(driver)
+#         raise TimeoutError(f"Erro ao aguardar URL {url}, url atual: {driver.current_url}, timeout: {timeout}. Erro: {e}")
+
+
+def aguardar_url(driver, url, timeout=60):
     try:
         WebDriverWait(driver, timeout).until(lambda d: d.current_url == url)
+        return False
     except Exception as e:
         logger.print_do_erro(driver)
-        raise TimeoutError(f"Erro ao aguardar URL {url}, url atual: {driver.current_url}, timeout: {timeout}. Erro: {e}")
+        return True
 
 
 def preencher_elemento(elemento, value):
@@ -21,7 +30,7 @@ def preencher_periodo_mensal_atual(driver, selectors):
     numMes = date_utils.get_month_number()
     numAno = date_utils.get_year()
     numUltimoDia = date_utils.get_last_day_of_the_month(int(numAno), int(numMes))
-        
+
     dataInicio = f"01/{numMes}/{numAno}"
     dataFinal = f"{numUltimoDia}/{numMes}/{numAno}"
     detectar_e_preencher_campo_data(driver, selectors["inicio"], dataInicio)
@@ -95,6 +104,7 @@ def detectar_e_aguardar_valor_em_elemento(driver, selectors, valorEsperado, time
 def clicar_elemento(driver, elemento):
     try:
         elemento.click()
+        logging.info("Click")
         time.sleep(1)
     except Exception:
         logger.print_do_erro(driver)
@@ -104,6 +114,7 @@ def clicar_elemento(driver, elemento):
 def detectar_elemento(driver, by, value, timeout=10):
     try:
         elemento = WebDriverWait(driver, timeout).until(EC.presence_of_element_located((by, value)))
+        logging.info(f"Detectou elemento by:{by}; value: {value}")
         return elemento
     except Exception:
         logger.print_do_erro(driver)
