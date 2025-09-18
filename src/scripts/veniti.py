@@ -57,6 +57,29 @@ def coleta_conjuntura(service, driver, selectors, url, folder_id, tipo):
         logging.exception(f"Erro ao coletar {tipo}: {e}\n")
 
 
+def coleta_rouboefurto(service, driver, selectors, url, folder_id, tipo):
+    try:
+        ui_actions.carregar_url(driver, url)
+        if date_utils.get_day() == "01":
+            ui_actions.preencher_periodo_mensal_passado(driver, selectors["periodo"])
+        else:
+            ui_actions.preencher_periodo_mensal_atual(driver, selectors["periodo"])
+        ui_actions.detectar_e_clicar_n_elementos(driver, selectors["atributos"])
+        caminho_arquivo = file_handler.wait_download(tipo)
+        if date_utils.get_day() == "01":
+            caminho_arquivo = file_handler.rename_file_previous_month(caminho_arquivo, tipo)
+            month_filter = f"/{date_utils.get_two_months_ago_month_number()}/"
+            table_handler.remove_lines_outside_month_filter(caminho_arquivo, 3, month_filter)
+        else:
+            caminho_arquivo = file_handler.rename_file_atual_month(caminho_arquivo, tipo)
+            month_filter = f"/{date_utils.get_previous_month_number()}/"
+            table_handler.remove_lines_outside_month_filter(caminho_arquivo, 3, month_filter)
+        google_drive.upload_report(service, caminho_arquivo, folder_id)
+        file_handler.remove_file(caminho_arquivo)
+    except Exception as e:
+        logging.exception(f"Erro ao coletar {tipo}: {e}\n")
+
+
 def coleta_veniti(service, driver, selectors, configs):
     dia, dia_semana, hora = scheduler.get_datas()
     if (scheduler.verificacao_data_veniti(dia, dia_semana, hora)):
@@ -73,3 +96,6 @@ def coleta_veniti(service, driver, selectors, configs):
         if (scheduler.agendamento_coleta_conjuntura(dia, dia_semana, hora)):
             logging.info("Relatório --> Conjuntura\n")
             coleta_conjuntura(service, driver, selectors["conjuntura"], url["conjuntura_url"], folder_id["conjuntura_folder_id"], tipo="conjuntura")
+        if(scheduler.agendamento_coleta_rouboefurto(dia, dia_semana, hora)):
+            logging.info("Relatório --> Roubo e Furto\n")
+            coleta_rouboefurto(service, driver, selectors["rouboefurto"], url["rouboefurto_url"], folder_id["rouboefurto_folder_id"], tipo= "rouboefurto")

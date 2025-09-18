@@ -40,7 +40,8 @@ def agendamento_coleta_ordem_de_servico(dia, dia_semana, hora, ultimo_dia):
 
 def verificacao_data_veniti(dia, dia_semana, hora):
     if (agendamento_coleta_atendimentos(dia, dia_semana, hora) or 
-        agendamento_coleta_conjuntura(dia, dia_semana, hora)):
+        agendamento_coleta_conjuntura(dia, dia_semana, hora) or
+        agendamento_coleta_rouboefurto(dia, dia_semana, hora)):
         return True
     return False
 
@@ -56,6 +57,16 @@ def agendamento_coleta_atendimentos(dia, dia_semana, hora):
 
 
 def agendamento_coleta_conjuntura(dia, dia_semana, hora):
+    if (testando):
+        return True
+    
+    # hora 7
+    if (hora == 7):
+        return True
+    return False
+
+
+def agendamento_coleta_rouboefurto(dia, dia_semana, hora):
     if (testando):
         return True
     
