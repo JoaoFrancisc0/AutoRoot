@@ -186,8 +186,8 @@ def processo_de_login_com_reCAPTCHA(driver, selectors, valuesLogin, login_url, s
 
         if campo in valuesLogin:
             preencher_elemento(elemento, valuesLogin[campo])
-        else:
-            resolver_captcha(driver, login_url, site_name)
+        # else:
+            # resolver_captcha(driver, login_url, site_name)
             # time.sleep(30)
 
 
