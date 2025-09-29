@@ -8,7 +8,11 @@ def login_sga(driver, login_url, home_url, selectors, values):
     ui_actions.processo_de_login_com_reCAPTCHA(driver, selectors["login"], values, login_url, site_name="sga")
     ui_actions.resolver_2FA(driver, selectors["login"]["botao"], selectors["2FA"], site_name="sga")
     if(ui_actions.aguardar_url(driver, home_url)):
-        ui_actions.detectar_e_clicar_elemento(driver, selectors["login"]["botao"])
+        logging.info("Login realizado com sucesso!\n")
+        return True
+    else:
+        logging.error("Erro ao realizar login.\n")
+        return False
 
 
 def coleta_mensal(service, driver, selectors, url, folder_id, tipo, fechamento):
@@ -55,7 +59,10 @@ def coleta_sga(service, driver, selectors, configs):
         values = configs["credenciais"]
         folder_id = configs["folder_id"]
 
-        login_sga(driver, url["login_url"], url["home_url"], selectors, values)
+        for i in range(1, 6):
+            logging.info(f"Tentativa de login {i}/5")
+            if login_sga(driver, url["login_url"], url["home_url"], selectors, values):
+                break
         
         selectors = selectors["setor"]
         supervisao = selectors["supervisao"]
